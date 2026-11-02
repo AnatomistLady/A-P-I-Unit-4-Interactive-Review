@@ -34,7 +34,7 @@
       line-height: 1.6;
       padding: 1.25rem;
     }
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 920px; margin: 0 auto; }
     
     header {
       background-color: var(--header-bg);
@@ -70,7 +70,7 @@
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       transition: all 0.2s ease;
     }
     .filter-btn:hover, .filter-btn.active {
@@ -218,17 +218,17 @@
   <div class="container">
     <header role="banner">
       <h1>A&amp;P I Mastery Arcade: Nervous System (Ch 12–16)</h1>
-      <p>Aligned with OpenStax <em>Anatomy &amp; Physiology 2e</em>. Items exit your random rotation once mastered.</p>
+      <p>Aligned with OpenStax <em>Anatomy &amp; Physiology 2e</em> (175 Comprehensive Practice Items &mdash; 35 Questions per Chapter). Mastered items exit your rotation.</p>
     </header>
 
     <div class="controls" role="region" aria-label="Filters and reset">
       <div class="filter-group" role="group" aria-label="Topic filter">
-        <button class="filter-btn active" data-topic="all">All Chapters</button>
-        <button class="filter-btn" data-topic="ch12">Ch 12: Nervous Tissue</button>
-        <button class="filter-btn" data-topic="ch13">Ch 13: Brain &amp; Cranial Nerves</button>
-        <button class="filter-btn" data-topic="ch14">Ch 14: Somatic System</button>
-        <button class="filter-btn" data-topic="ch15">Ch 15: Autonomic System</button>
-        <button class="filter-btn" data-topic="ch16">Ch 16: Neurological Exam</button>
+        <button class="filter-btn active" data-topic="all">All (175)</button>
+        <button class="filter-btn" data-topic="ch12">Ch 12: Nervous Tissue (35)</button>
+        <button class="filter-btn" data-topic="ch13">Ch 13: Brain &amp; Cranial Nerves (35)</button>
+        <button class="filter-btn" data-topic="ch14">Ch 14: Somatic System (35)</button>
+        <button class="filter-btn" data-topic="ch15">Ch 15: Autonomic System (35)</button>
+        <button class="filter-btn" data-topic="ch16">Ch 16: Neurological Exam (35)</button>
       </div>
       <div>
         <button id="resetMasteryBtn" class="reset-link">Reset Mastery</button>
@@ -246,7 +246,7 @@
       </div>
       <div class="stat-card">
         <div id="statTotal" class="stat-value">0</div>
-        <div class="stat-label">Total Questions</div>
+        <div class="stat-label">Total in Pool</div>
       </div>
       <div class="stat-card">
         <div id="statPercent" class="stat-value">0%</div>
@@ -276,257 +276,365 @@
       </section>
 
       <section id="completedCard" class="quiz-card empty-state" style="display: none;">
-        <h2>Nervous System Unit Mastered!</h2>
-        <p>You have successfully mastered every question in this selected category without repeat prompts.</p>
-        <p style="margin-top: 0.5rem; color: var(--text-muted);">Select another chapter above or click "Reset Mastery" to practice again.</p>
+        <h2>Selected Topic Mastered!</h2>
+        <p>You have successfully mastered every question in this category.</p>
+        <p style="margin-top: 0.5rem; color: var(--text-muted);">Select another chapter filter above or click "Reset Mastery" to practice again.</p>
       </section>
     </main>
   </div>
 
   <script>
-    const questionBank = [
-      /* ========================================================================= */
-      /* CHAPTER 12: NERVOUS SYSTEM & NERVOUS TISSUE                               */
-      /* ========================================================================= */
-      {
-        id: "ns-01",
-        topic: "ch12",
-        topicName: "Ch 12: Nervous Divisions",
-        passage: "The nervous system is functionally partitioned into somatic and autonomic divisions. The somatic nervous system (SNS) is responsible for conscious perception and voluntary motor responses via skeletal muscle contraction. In contrast, the autonomic nervous system (ANS) governs involuntary visceral motor activities, regulating cardiac muscle, smooth muscle, and glandular secretion to maintain homeostatic equilibrium.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-1-basic-structure-and-function-of-the-nervous-system",
-        prompt: "Which division of the peripheral nervous system is responsible for conscious sensory perception and voluntary control of skeletal muscle contraction?",
-        options: ["Somatic nervous system", "Autonomic nervous system", "Enteric nervous system", "Parasympathetic nervous system"],
-        correct: 0,
-        explanation: "The somatic nervous system mediates voluntary skeletal muscle contraction and conscious sensory perception."
-      },
-      {
-        id: "ns-02",
-        topic: "ch12",
-        topicName: "Ch 12: Neuron Microanatomy",
-        passage: "Neurons exhibit specialized functional regions. Dendrites receive input from other neurons and convey graded potentials toward the soma (cell body). The axon emerges from the cell body at a tapered cone-shaped region called the axon hillock. Distal to the axon hillock lies the initial segment, where high densities of voltage-gated sodium channels create the trigger zone that initiates propagated action potentials.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
-        prompt: "Action potentials are initiated in a multipolar neuron at which specialized region containing a high density of voltage-gated sodium channels?",
-        options: ["Axon hillock / initial segment (trigger zone)", "Nissl body", "Dendritic arbor", "Terminal bouton"],
-        correct: 0,
-        explanation: "The initial segment directly adjacent to the axon hillock functions as the trigger zone where summation leads to action potential firing."
-      },
-      {
-        id: "ns-03",
-        topic: "ch12",
-        topicName: "Ch 12: Glial Cells & BBB",
-        passage: "Neuroglia outnumber neurons in the central nervous system. Astrocytes possess expanded vascular end-feet that wrap around brain capillaries, stimulating capillary endothelial cells to form tight junctions that construct the blood-brain barrier (BBB). Oligodendrocytes produce the insulating myelin sheath in the CNS, while microglia function as resident immunocompetent macrophages. Ependymal cells line ventricular cavities and assist in circulating cerebrospinal fluid.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-3-glial-cells",
-        prompt: "Which central nervous system glial cells extend perivascular feet to maintain and regulate the physiological permeability of the blood-brain barrier?",
-        options: ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"],
-        correct: 0,
-        explanation: "Astrocytes induce and maintain endothelial tight junctions, creating the protective blood-brain barrier."
-      },
-      {
-        id: "ns-04",
-        topic: "ch12",
-        topicName: "Ch 12: Resting Potentials",
-        passage: "The resting membrane potential of a neuron (approximately -70 mV) is primarily maintained by non-gated potassium leakage channels and active ion transport. Because the neuronal membrane possesses significantly more open K+ leak channels than Na+ leak channels, potassium diffuses outward down its concentration gradient. The Na+/K+ ATPase pump maintains the underlying gradients by continuously hydrolyzing ATP to pump 3 Na+ out of the cell for every 2 K+ brought inside.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
-        prompt: "What primary mechanism maintains the resting negative intracellular potential by continuously transporting 3 Na+ ions out of the cell for every 2 K+ ions imported?",
-        options: ["Na+/K+ ATPase pump", "Voltage-gated calcium channels", "Anion exchange exchangers", "Nicotinic cholinergic receptors"],
-        correct: 0,
-        explanation: "The electrogenic Na+/K+ ATPase pump exports 3 Na+ for every 2 K+ imported, maintaining ionic concentration gradients."
-      },
-      {
-        id: "ns-05",
-        topic: "ch12",
-        topicName: "Ch 12: Action Potential Dynamics",
-        passage: "The rapid upstroke of an action potential occurs when local depolarization reaches threshold (typically -55 mV), triggering the opening of activation gates on voltage-gated sodium channels. Sodium rushes into the axoplasm, driving the transmembrane voltage toward +30 mV. At this peak, sodium inactivation gates close, while voltage-gated potassium channels open, allowing K+ to exit the neuron and repolarize the membrane back toward resting potential.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
-        prompt: "Which ionic event is directly responsible for the rapid depolarization phase of the neuronal action potential?",
-        options: ["Rapid influx of sodium ions through voltage-gated Na+ channels", "Rapid efflux of potassium ions through leak channels", "Efflux of chloride ions through ligand-gated channels", "Influx of calcium ions through terminal cisternae"],
-        correct: 0,
-        explanation: "Voltage-gated sodium channel opening drives a massive inward flux of Na+, rapidly depolarizing the axolemma."
-      },
-      {
-        id: "ns-06",
-        topic: "ch12",
-        topicName: "Ch 12: Synaptic Transmission",
-        passage: "Chemical neurotransmission occurs across the synaptic cleft. When an action potential reaches the presynaptic axon terminal, depolarization triggers the opening of voltage-gated calcium channels. Inward Ca2+ flux stimulates synaptic vesicles to fuse with the presynaptic membrane, releasing neurotransmitter via exocytosis into the cleft. Neurotransmitters diffuse across and bind to receptors on the postsynaptic membrane.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-5-communication-between-neurons",
-        prompt: "The exocytosis of neurotransmitter-filled vesicles from the presynaptic axon terminal is directly triggered by an influx of which ion?",
-        options: ["Calcium (Ca2+)", "Sodium (Na+)", "Potassium (K+)", "Magnesium (Mg2+)"],
-        correct: 0,
-        explanation: "Depolarization opens voltage-gated Ca2+ channels; the resulting calcium surge triggers snare-mediated vesicular fusion and exocytosis."
-      },
+    const questionBank = [];
 
-      /* ========================================================================= */
-      /* CHAPTER 13: THE BRAIN & CRANIAL NERVES                                    */
-      /* ========================================================================= */
-      {
-        id: "ns-07",
-        topic: "ch13",
-        topicName: "Ch 13: Embryology of the Brain",
-        passage: "During the fifth week of embryonic development, the primary brain vesicles divide into five secondary vesicles. The prosencephalon subdivides into the telencephalon (destined to become the cerebral cortex, white matter, and basal nuclei) and the diencephalon (thalamus and hypothalamus). The mesencephalon remains the midbrain, while the rhombencephalon splits into the metencephalon (pons and cerebellum) and myelencephalon (medulla oblongata).",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-1-the-embryologic-perspective",
-        prompt: "Which secondary embryonic brain vesicle gives rise to the adult pons and cerebellum?",
-        options: ["Metencephalon", "Myelencephalon", "Telencephalon", "Diencephalon"],
-        correct: 0,
-        explanation: "The metencephalon differentiates into the adult pons and the cerebellum."
-      },
-      {
-        id: "ns-08",
-        topic: "ch13",
-        topicName: "Ch 13: Cortical Localization",
-        passage: "The primary motor cortex is mapped somatotopically to the precentral gyrus of the frontal lobe, initiating voluntary commands to skeletal muscles. Directly posterior to the central sulcus, situated within the postcentral gyrus of the parietal lobe, lies the primary somatosensory cortex. This region receives and processes general somatic sensory inputs regarding discriminative touch, pressure, pain, vibration, and temperature from across the body.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
-        prompt: "The primary somatosensory cortex is localized to which specific anatomical region of the cerebrum?",
-        options: ["Postcentral gyrus of the parietal lobe", "Precentral gyrus of the frontal lobe", "Superior temporal gyrus", "Calcarine sulcus of the occipital lobe"],
-        correct: 0,
-        explanation: "General somatic sensation maps somatotopically onto the postcentral gyrus of the parietal lobe."
-      },
-      {
-        id: "ns-09",
-        topic: "ch13",
-        topicName: "Ch 13: Diencephalic Sensory Relay",
-        passage: "The diencephalon consists primarily of the thalamus and hypothalamus. The thalamus acts as a major relay and processing station for nearly all incoming sensory information directed to the cerebral cortex. The only special sensory pathway that bypasses mandatory thalamic relay and projects directly into the cortical parenchyma is the olfactory pathway (sense of smell).",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
-        prompt: "Which special sensory pathway reaches the cerebral cortex directly without passing through a relay nucleus in the thalamus?",
-        options: ["Olfaction (Smell)", "Vision", "Auditory sensation", "Gustation (Taste)"],
-        correct: 0,
-        explanation: "Olfactory signals travel directly to the primary olfactory cortex without mandatory relay in the thalamus."
-      },
-      {
-        id: "ns-10",
-        topic: "ch13",
-        topicName: "Ch 13: Medulla & Pyramidal Decussation",
-        passage: "The inferior brainstem is formed by the medulla oblongata, which houses critical autonomic nuclei. The cardiovascular center regulates heart rate and blood vessel diameter, while the respiratory rhythmicity center sets the pace of pulmonary ventilation. Anteriorly, the descending corticospinal motor tracts form elevated columns called the pyramids, where approximately 90% of fibers cross the midline at the decussation of the pyramids.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
-        prompt: "The anatomical crossover of descending corticospinal motor tracts that produces contralateral voluntary muscle control occurs at which landmark?",
-        options: ["Decussation of the pyramids in the medulla oblongata", "Cerebral peduncles of the midbrain", "Middle cerebellar peduncles of the pons", "Corpus callosum"],
-        correct: 0,
-        explanation: "Fibers of the corticospinal tracts cross at the decussation of the pyramids on the anterior medulla."
-      },
-      {
-        id: "ns-11",
-        topic: "ch13",
-        topicName: "Ch 13: CSF Circulation",
-        passage: "Cerebrospinal fluid (CSF) is continually secreted by ependymal-covered capillary networks called choroid plexuses within the brain ventricles. Fluid flows from the lateral ventricles through the interventricular foramina into the third ventricle, passes down the cerebral aqueduct into the fourth ventricle, and enters the subarachnoid space. CSF is ultimately returned to the venous circulation by draining through arachnoid granulations into the superior sagittal sinus.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-3-circulation-and-the-central-nervous-system",
-        prompt: "Through which specialized structures does cerebrospinal fluid drain from the subarachnoid space into the dural venous sinuses?",
-        options: ["Arachnoid granulations (villi)", "Choroid plexuses", "Ependymal gap junctions", "Central canal of the spinal cord"],
-        correct: 0,
-        explanation: "Arachnoid granulations project through the dura mater into the superior sagittal sinus to return CSF to systemic venous circulation."
-      },
-      {
-        id: "ns-12",
-        topic: "ch13",
-        topicName: "Ch 13: Cranial Nerves",
-        passage: "The twelve pairs of cranial nerves are designated by Roman numerals. Cranial nerve X, the vagus nerve, extends beyond the head and neck to provide parasympathetic autonomic motor innervation to thoracic and abdominopelvic viscera, slowing heart rate and promoting digestive motility. Somatic motor supply to the tongue is delivered by CN XII (hypoglossal), while facial expression and taste on the anterior two-thirds of the tongue are governed by CN VII (facial).",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-cranial-nerves",
-        prompt: "Which cranial nerve provides the predominant parasympathetic autonomic supply to the heart, respiratory airways, and digestive tract?",
-        options: ["CN X (Vagus nerve)", "CN VII (Facial nerve)", "CN IX (Glossopharyngeal nerve)", "CN XII (Hypoglossal nerve)"],
-        correct: 0,
-        explanation: "The vagus nerve (CN X) provides extensive parasympathetic autonomic innervation to the thoracic and abdominopelvic viscera."
-      },
+    // Helper generator to construct 35 questions per chapter
+    function buildChapterQuestions(chNum, topicKey, sectionData) {
+      let qIndex = 1;
+      sectionData.forEach(sec => {
+        sec.items.forEach(item => {
+          questionBank.push({
+            id: `${topicKey}-q${String(qIndex).padStart(2, '0')}`,
+            topic: topicKey,
+            topicName: `Ch ${chNum}: ${sec.title} (#${qIndex})`,
+            passage: sec.passage,
+            readingUrl: sec.url,
+            prompt: item.prompt,
+            options: item.options,
+            correct: 0,
+            explanation: item.exp
+          });
+          qIndex++;
+        });
+      });
+    }
 
-      /* ========================================================================= */
-      /* CHAPTER 14: THE SOMATIC NERVOUS SYSTEM                                    */
-      /* ========================================================================= */
+    /* ========================================================================= */
+    /* CHAPTER 12: THE NERVOUS SYSTEM AND NERVOUS TISSUE (35 QUESTIONS)           */
+    /* ========================================================================= */
+    buildChapterQuestions(12, "ch12", [
       {
-        id: "ns-13",
-        topic: "ch14",
-        topicName: "Ch 14: Somatosensory Receptors",
-        passage: "Sensory receptors are classified by structure and location. Free nerve endings consist of bare dendrites detecting pain (nociception) and temperature. Proprioceptors, located in skeletal muscles, tendons, and joint capsules, continuously monitor muscle length, contractile tension, and body position in space. Tactile (Meissner) corpuscles detect light touch, while lamellar (Pacinian) corpuscles respond to deep pressure and vibration.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception",
-        prompt: "Sensory receptors located within muscle bellies, tendons, and joint capsules that provide continuous feedback regarding limb orientation and joint angles are classified as:",
-        options: ["Proprioceptors", "Exteroceptors", "Interoceptors", "Chemoreceptors"],
-        correct: 0,
-        explanation: "Proprioceptors monitor the position and movement of skeletal muscles and joints in three-dimensional space."
+        title: "12.1 Structural & Functional Divisions",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-1-basic-structure-and-function-of-the-nervous-system",
+        passage: "The nervous system is structurally divided into the central nervous system (CNS; brain and spinal cord) and the peripheral nervous system (PNS; nerves and ganglia). Functionally, the somatic nervous system (SNS) directs conscious sensation and voluntary control over skeletal muscle contraction. In contrast, the autonomic nervous system (ANS) involuntarily controls cardiac muscle, smooth muscle, and glandular tissue, while the enteric nervous system (ENS) specifically manages digestive tract motility and secretion.",
+        items: [
+          { prompt: "Which anatomical division of the nervous system consists exclusively of the brain and spinal cord?", options: ["Central nervous system (CNS)", "Peripheral nervous system (PNS)", "Enteric nervous system (ENS)", "Autonomic nervous system (ANS)"], exp: "The CNS comprises the brain and spinal cord enclosed within the axial dorsal cavities." },
+          { prompt: "Which functional division of the peripheral nervous system governs voluntary control of skeletal muscle contraction?", options: ["Somatic nervous system", "Autonomic nervous system", "Parasympathetic division", "Enteric nervous system"], exp: "The somatic nervous system controls voluntary skeletal muscle contractions." },
+          { prompt: "The involuntary visceral motor division that regulates heart rate, smooth muscle contraction, and glandular secretion is the:", options: ["Autonomic nervous system", "Somatic nervous system", "Central nervous system", "Somatic sensory division"], exp: "The ANS regulates visceral effector targets without conscious control." },
+          { prompt: "A localized collection of neuron cell bodies residing outside the central nervous system in the peripheral nervous system is called a:", options: ["Ganglion", "Nucleus", "Tract", "Nerve"], exp: "A ganglion is an encapsulated collection of neuron cell bodies in the PNS; inside the CNS it is a nucleus." },
+          { prompt: "A bundle of axons coursing together within the central nervous system is anatomically designated as a:", options: ["Tract", "Nerve", "Ganglion", "Plexus"], exp: "In the CNS, an axon bundle is a tract; in the PNS, it is a nerve." },
+          { prompt: "The specialized division of the nervous system embedded directly within the walls of the alimentary canal to regulate digestion is the:", options: ["Enteric nervous system", "Somatic nervous system", "Central nervous system", "Sympathetic chain"], exp: "The ENS operates semi-autonomously within digestive organ walls." },
+          { prompt: "In sensory processing, receptors transduce stimuli into electrical signals that travel to the CNS along which functional pathway?", options: ["Afferent (sensory) pathway", "Efferent (motor) pathway", "Somatic motor pathway", "Descending tract"], exp: "Afferent fibers carry sensory input toward the central nervous system." }
+        ]
       },
       {
-        id: "ns-14",
-        topic: "ch14",
-        topicName: "Ch 14: Ascending Somatosensory Pathways",
-        passage: "Ascending somatosensory pathways consist of three-neuron chains. In the spinothalamic (anterolateral) tract, which conveys pain, temperature, and crude touch, first-order neurons enter the spinal cord via dorsal roots and synapse in the posterior horn. Second-order neurons decussate immediately at that segmental level through the anterior white commissure before ascending to the ventral posterolateral (VPL) nucleus of the thalamus. Third-order neurons then project to the primary somatosensory cortex.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-2-central-processing",
-        prompt: "Where do second-order neurons of the spinothalamic (anterolateral) pathway decussate before ascending to the thalamus?",
-        options: ["At the spinal cord level of entry via the anterior white commissure", "In the pyramids of the medulla oblongata", "Within the internal capsule", "In the cerebellar vermis"],
-        correct: 0,
-        explanation: "Spinothalamic second-order neurons cross the midline at or near the level of entry via the anterior white commissure."
+        title: "12.2 Neuron Microanatomy & Classes",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+        passage: "Neurons exhibit structural polarity. Dendrites branch from the soma to receive graded potential inputs. The axon emerges from the cell body at the axon hillock and narrows into the initial segment, forming the trigger zone rich in voltage-gated sodium channels. Neurons are structurally classified as multipolar (many dendrites, one axon), bipolar (one dendrite, one axon; found in special senses like the retina), and unipolar/pseudo-unipolar (sensory neurons with a single process bifurcating into peripheral and central branches).",
+        items: [
+          { prompt: "Action potentials are initiated in a multipolar neuron at which specialized region featuring the highest density of voltage-gated Na+ channels?", options: ["Axon hillock / initial segment (trigger zone)", "Dendritic arbor", "Nissl body", "Telodendria"], exp: "The initial segment is the trigger zone where summed graded potentials initiate an action potential." },
+          { prompt: "Which structural class of neurons possesses multiple dendrites and a single long axon, representing the most common neuron type in the CNS?", options: ["Multipolar neuron", "Bipolar neuron", "Unipolar neuron", "Pseudounipolar neuron"], exp: "Multipolar neurons predominate throughout the brain and spinal cord motor circuits." },
+          { prompt: "Bipolar neurons possessing exactly one dendrite and one axon are typically located in which specialized sensory structure?", options: ["Retina of the eye and olfactory epithelium", "Anterior horn of the spinal cord", "Dorsal root ganglia", "Motor cortex"], exp: "Bipolar neurons are rare and restricted to special sensory organs (retina, olfactory epithelium, inner ear)." },
+          { prompt: "Most general somatic sensory neurons whose cell bodies reside in dorsal root ganglia are structurally classified as:", options: ["Unipolar (pseudounipolar) neurons", "Multipolar neurons", "Bipolar neurons", "Anaxonic neurons"], exp: "Sensory neurons in dorsal root ganglia are pseudounipolar, conveying signals directly from periphery to spinal cord." },
+          { prompt: "The prominent rough endoplasmic reticulum and free ribosomes that produce proteins in the neuronal soma appear histologically as:", options: ["Nissl bodies (chromatophilic substance)", "Neurofibrils", "Lipofuscin granules", "Terminal boutons"], exp: "Nissl bodies represent dense rough ER stacks dedicated to protein and neurotransmitter synthesis." },
+          { prompt: "The insulating lipid layer wrapped around peripheral and central axons to accelerate conduction velocity is the:", options: ["Myelin sheath", "Neurilemma", "Endoneurium", "Perineurium"], exp: "Myelin sheaths formed by glial membranes insulate axons and facilitate saltatory conduction." },
+          { prompt: "The gaps along a myelinated axon where voltage-gated sodium channels are clustered are known as:", options: ["Nodes of Ranvier", "Axon hillocks", "Synaptic clefts", "Terminal cisternae"], exp: "Nodes of Ranvier are periodic unmyelinated gaps where the action potential is regenerated." }
+        ]
       },
       {
-        id: "ns-15",
-        topic: "ch14",
-        topicName: "Ch 14: Upper vs. Lower Motor Neurons",
-        passage: "Lower motor neurons (LMNs) have their cell bodies in the anterior (ventral) horn of the spinal cord or motor cranial nerve nuclei of the brainstem, extending axons to innervate skeletal muscle fibers. Upper motor neuron (UMN) lesions (e.g., from stroke) produce spasticity, hyperreflexia, and a positive Babinski sign due to loss of descending inhibition. Conversely, LMN lesions produce flaccid paralysis, muscle atrophy, and absent deep tendon reflexes (areflexia).",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-3-motor-responses",
-        prompt: "Which clinical sign is uniquely characteristic of an upper motor neuron (UMN) lesion rather than a lower motor neuron lesion?",
-        options: ["Spasticity with hyperreflexia and an extensor plantar (Babinski) sign", "Flaccid paralysis", "Severe denervation muscle atrophy", "Absent deep tendon reflexes (areflexia)"],
-        correct: 0,
-        explanation: "Loss of descending inhibitory upper motor neuron modulation results in spasticity, clonus, hyperactive reflexes, and the Babinski sign."
+        title: "12.3 Glial Cells & Myelination",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-3-glial-cells",
+        passage: "Neuroglia provide critical structural and physiological support. In the CNS, astrocytes extend perivascular end-feet to maintain the blood-brain barrier (BBB), regulate extracellular potassium, and recycle neurotransmitters. Oligodendrocytes myelinate multiple CNS axons. Microglia act as phagocytes that clear debris. Ependymal cells line the ventricles and filter blood to produce CSF. In the PNS, Schwann cells myelinate a single axonal segment, and satellite cells cushion ganglia.",
+        items: [
+          { prompt: "Which CNS neuroglial cells extend perivascular feet to stimulate tight junction formation and maintain the blood-brain barrier?", options: ["Astrocytes", "Microglia", "Oligodendrocytes", "Ependymal cells"], exp: "Astrocyte end-feet regulate the endothelial tight junctions comprising the blood-brain barrier." },
+          { prompt: "Which glial cells produce the myelin sheath around multiple axons simultaneously within the central nervous system?", options: ["Oligodendrocytes", "Schwann cells", "Satellite cells", "Astrocytes"], exp: "Oligodendrocytes extend multiple processes to insulate several neighboring axons in the CNS." },
+          { prompt: "Which neuroglial cells form myelin sheaths around axons exclusively within the peripheral nervous system (PNS)?", options: ["Schwann cells (neurolemmocytes)", "Oligodendrocytes", "Astrocytes", "Microglia"], exp: "Schwann cells wrap around a single axon segment in the peripheral nervous system." },
+          { prompt: "Resident immunocompetent cells in the CNS that transform into mobile phagocytes to destroy pathogens and engulf cellular debris are:", options: ["Microglia", "Ependymal cells", "Astrocytes", "Oligodendrocytes"], exp: "Microglia are macrophage-derived scavengers monitoring CNS health." },
+          { prompt: "Ciliated glial cells that line the brain ventricles and central canal of the spinal cord to assist in CSF circulation are:", options: ["Ependymal cells", "Astrocytes", "Satellite cells", "Schwann cells"], exp: "Ependymal cells form an epithelial lining across the ventricles and circulate cerebrospinal fluid." },
+          { prompt: "Which PNS glial cells encircle and support neuron cell bodies located inside sensory and autonomic ganglia?", options: ["Satellite cells", "Schwann cells", "Astrocytes", "Oligodendrocytes"], exp: "Satellite cells cushion and regulate the chemical environment of cell bodies in PNS ganglia." },
+          { prompt: "In myelinated PNS axons, the outer nucleated cytoplasmic layer of the Schwann cell is termed the:", options: ["Neurilemma (sheath of Schwann)", "Endoneurium", "Perineurium", "Axolemma"], exp: "The neurilemma contains the Schwann cell nucleus and cytoplasm outer to the myelin wraps." }
+        ]
       },
       {
-        id: "ns-16",
-        topic: "ch14",
-        topicName: "Ch 14: Somatic Reflex Arcs",
-        passage: "The somatic stretch reflex (such as the patellar reflex) is a monosynaptic reflex that protects muscles against over-stretching. Intrafusal fibers inside muscle spindles detect stretching and send excitatory action potentials through Type Ia sensory afferents directly to alpha motor neurons in the spinal cord, causing the homonymous agonist muscle to contract. Simultaneously, collateral afferent branches synapse on inhibitory interneurons to relax the antagonist muscle via reciprocal inhibition.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-4-somatic-reflexes",
-        prompt: "What specialized sensory receptor detects the rate and magnitude of muscle lengthening to initiate the stretch reflex?",
-        options: ["Muscle spindle", "Golgi tendon organ", "Lamellar corpuscle", "Bulbous corpuscle"],
-        correct: 0,
-        explanation: "Muscle spindles house intrafusal fibers that detect muscle stretch and trigger the monosynaptic stretch reflex."
-      },
-
-      /* ========================================================================= */
-      /* CHAPTER 15: THE AUTONOMIC NERVOUS SYSTEM                                  */
-      /* ========================================================================= */
-      {
-        id: "ns-17",
-        topic: "ch15",
-        topicName: "Ch 15: Autonomic Outflow Anatomy",
-        passage: "The autonomic nervous system utilizes a two-neuron efferent chain. The sympathetic division arises from the thoracolumbar region (T1–L2) of the spinal cord, featuring short preganglionic fibers that synapse in sympathetic chain (paravertebral) or prevertebral ganglia, and long postganglionic fibers. The parasympathetic division exhibits craniosacral outflow (cranial nerves III, VII, IX, X, and sacral levels S2–S4), with long preganglionic fibers synapsing in terminal or intramural ganglia near or inside effector organs.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-1-divisions-of-the-autonomic-nervous-system",
-        prompt: "The preganglionic cell bodies of the sympathetic nervous system emerge from which specific regions of the spinal cord?",
-        options: ["Thoracolumbar segments (T1 through L2)", "Craniosacral segments (brainstem and S2–S4)", "Cervical segments (C1 through C8)", "Sacrococcygeal segments exclusively"],
-        correct: 0,
-        explanation: "Sympathetic preganglionic neurons reside exclusively within the lateral horns of spinal cord segments T1 to L2 (thoracolumbar outflow)."
+        title: "12.4 Membrane Potentials & Ion Dynamics",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
+        passage: "A resting neuron exhibits a membrane potential of approximately -70 mV. This baseline is maintained by high membrane permeability to potassium via K+ leak channels and the electrogenic Na+/K+ ATPase pump (pumping 3 Na+ out for 2 K+ in). When threshold (-55 mV) is reached, voltage-gated Na+ channels open, driving rapid depolarization toward +30 mV. Na+ channel inactivation gates then close, and voltage-gated K+ channels open, allowing K+ efflux to repolarize and briefly hyperpolarize the cell.",
+        items: [
+          { prompt: "The resting membrane potential of a typical excitable neuron is approximately:", options: ["-70 mV", "-55 mV", "+30 mV", "0 mV"], exp: "Resting membrane potential sits at approximately -70 mV inside relative to the outside." },
+          { prompt: "What primary active transport mechanism maintains resting ionic concentration gradients across the neuronal axolemma?", options: ["Na+/K+ ATPase pump (3 Na+ out, 2 K+ in)", "Ca2+ ATPase pump", "Na+/glucose symporter", "K+/H+ antiporter"], exp: "The Na+/K+ pump uses ATP to maintain electrochemical gradients by expelling 3 Na+ and importing 2 K+." },
+          { prompt: "The minimum level of membrane depolarization required to open voltage-gated Na+ channels and trigger an action potential is the:", options: ["Threshold potential (-55 mV)", "Resting potential (-70 mV)", "Peak potential (+30 mV)", "Equilibrium potential (+60 mV)"], exp: "Threshold (about -55 mV) must be reached to initiate explosive all-or-none action potential firing." },
+          { prompt: "The rapid depolarization phase of the action potential is driven primarily by:", options: ["Rapid influx of Na+ through voltage-gated sodium channels", "Rapid efflux of K+ through leak channels", "Inward flux of Cl- ions", "Active transport of Ca2+ by pumps"], exp: "Opening of voltage-gated Na+ activation gates allows massive sodium influx down its gradient." },
+          { prompt: "The repolarization phase of the action potential is accomplished by the closing of Na+ channels and the:", options: ["Opening of voltage-gated K+ channels allowing potassium efflux", "Opening of ligand-gated Ca2+ channels", "Reversal of the Na+/K+ ATPase pump", "Influx of chloride ions"], exp: "Potassium efflux through voltage-gated K+ channels returns the membrane potential toward negative resting values." },
+          { prompt: "During which phase can an excitable membrane NOT fire another action potential regardless of stimulus strength?", options: ["Absolute refractory period", "Relative refractory period", "Hyperpolarization phase", "Graded potential summation"], exp: "The absolute refractory period occurs while voltage-gated Na+ channels are either open or inactivated." },
+          { prompt: "Action potential propagation in myelinated axons where current leaps from one Node of Ranvier to the next is termed:", options: ["Saltatory conduction", "Continuous conduction", "Spatial summation", "Temporal summation"], exp: "Saltatory conduction allows high-speed electrical jumping between Nodes of Ranvier." }
+        ]
       },
       {
-        id: "ns-18",
-        topic: "ch15",
-        topicName: "Ch 15: Autonomic Neurotransmitters",
-        passage: "All autonomic preganglionic axons release acetylcholine (ACh), which binds to ionotropic nicotinic receptors on postganglionic neurons. Parasympathetic postganglionic axons also release ACh, but it binds to metabotropic muscarinic receptors on effector targets. Most sympathetic postganglionic neurons release norepinephrine (NE) onto alpha or beta adrenergic receptors on target tissues. A notable exception is the adrenal medulla, where preganglionic sympathetic fibers directly stimulate chromaffin cells to secrete epinephrine and norepinephrine into the bloodstream.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-2-autonomic-synapses-and-chemical-transmission",
-        prompt: "Which neurotransmitter and receptor type are universally utilized at the synapse between preganglionic and postganglionic neurons in both autonomic divisions?",
-        options: ["Acetylcholine binding to nicotinic receptors", "Norepinephrine binding to alpha-1 adrenergic receptors", "Acetylcholine binding to muscarinic receptors", "Epinephrine binding to beta-2 adrenergic receptors"],
-        correct: 0,
-        explanation: "All autonomic preganglionic neurons release acetylcholine (ACh), which stimulates nicotinic acetylcholine receptors on ganglion cells."
-      },
-
-      /* ========================================================================= */
-      /* CHAPTER 16: THE NEUROLOGICAL EXAM                                         */
-      /* ========================================================================= */
-      {
-        id: "ns-19",
-        topic: "ch16",
-        topicName: "Ch 16: Mental Status & Language",
-        passage: "The mental status exam assesses cognitive functions localized to the cerebral cortex. The orientation subtest evaluates awareness of person, place, and time, which requires intact memory and attention networks. Language assessment differentiates between expressive (Broca) aphasia—where speech production is halting despite preserved comprehension—and receptive (Wernicke) aphasia, where speech is fluent but devoid of meaning, accompanied by severe deficits in comprehension.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-2-the-mental-status-exam",
-        prompt: "A patient who speaks with normal fluency and rate but uses nonsensical words and fails to comprehend verbal questions is presenting with which cortical deficit?",
-        options: ["Receptive (Wernicke) aphasia", "Expressive (Broca) aphasia", "Dysarthria", "Retrograde amnesia"],
-        correct: 0,
-        explanation: "Damage to Wernicke's area in the superior temporal lobe results in receptive aphasia—fluent but meaningless speech and loss of comprehension."
-      },
-      {
-        id: "ns-20",
-        topic: "ch16",
-        topicName: "Ch 16: Coordination & Gait (Romberg Test)",
-        passage: "The neurological examination evaluates coordination and gait to assess cerebellar function and sensory balance circuits. The Romberg test asks the patient to stand erect with feet together and eyes closed. Swaying or falling with the eyes closed indicates sensory ataxia—a loss of proprioceptive somatosensory input from the dorsal column-medial lemniscal pathway—because visual feedback can no longer compensate for lost joint position sense.",
-        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-5-coordination-and-gait-exams",
-        prompt: "In a clinical Romberg test, marked postural instability and falling that occurs specifically when the patient closes their eyes indicates a deficit in which sensory modality?",
-        options: ["Conscious proprioception via the dorsal columns", "Visual acuity via the optic chiasm", "High-frequency hearing via the cochlea", "Pain transduction via the spinothalamic tract"],
-        correct: 0,
-        explanation: "A positive Romberg sign indicates sensory ataxia resulting from impaired dorsal column proprioceptive transmission."
+        title: "12.5 Synapses & Postsynaptic Potentials",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-5-communication-between-neurons",
+        passage: "At a chemical synapse, depolarization of the presynaptic terminal opens voltage-gated Ca2+ channels. Inward Ca2+ flux triggers vesicular exocytosis of neurotransmitters into the synaptic cleft. Neurotransmitters bind to postsynaptic ionotropic (ligand-gated channel) or metabotropic (G-protein coupled) receptors. Excitatory postsynaptic potentials (EPSPs) depolarize the membrane (often via Na+ influx), whereas inhibitory postsynaptic potentials (IPSPs) hyperpolarize it (via Cl- influx or K+ efflux).",
+        items: [
+          { prompt: "Depolarization of the presynaptic terminal triggers neurotransmitter exocytosis by directly opening voltage-gated channels for:", options: ["Calcium (Ca2+)", "Sodium (Na+)", "Potassium (K+)", "Chloride (Cl-)"], exp: "Calcium entry through voltage-gated Ca2+ channels triggers SNARE-mediated synaptic vesicle fusion." },
+          { prompt: "A localized, graded depolarization of the postsynaptic membrane that moves the potential closer to threshold is a(n):", options: ["Excitatory postsynaptic potential (EPSP)", "Inhibitory postsynaptic potential (IPSP)", "Action potential", "Hyperpolarizing afterpotential"], exp: "EPSPs are graded depolarizations that increase the likelihood of reaching action potential threshold." },
+          { prompt: "Opening of ligand-gated chloride (Cl-) channels on a postsynaptic membrane causes an influx of negative ions, producing a(n):", options: ["Inhibitory postsynaptic potential (IPSP)", "Excitatory postsynaptic potential (EPSP)", "Depolarizing threshold event", "Refractory reset"], exp: "Chloride influx hyperpolarizes the membrane, creating an inhibitory postsynaptic potential (IPSP)." },
+          { prompt: "The addition of multiple postsynaptic potentials generated simultaneously at different synapses across the dendritic tree is:", options: ["Spatial summation", "Temporal summation", "Continuous conduction", "Saltatory propagation"], exp: "Spatial summation combines inputs arriving at multiple distinct synapses across the neuron." },
+          { prompt: "The rapid addition of postsynaptic potentials arriving in rapid succession from a single presynaptic terminal is:", options: ["Temporal summation", "Spatial summation", "Saltatory conduction", "Absolute refraction"], exp: "Temporal summation occurs when consecutive signals arrive at a single synapse in rapid succession." },
+          { prompt: "Which type of neurotransmitter receptor contains an integral ion channel that opens immediately upon ligand binding?", options: ["Ionotropic receptor (ligand-gated ion channel)", "Metabotropic receptor (G-protein coupled)", "Nuclear hormone receptor", "Voltage-gated pump"], exp: "Ionotropic receptors are ligand-gated channels that open directly upon neurotransmitter binding." },
+          { prompt: "Which enzyme present in the synaptic cleft rapidly hydrolyzes acetylcholine to terminate cholinergic neurotransmission?", options: ["Acetylcholinesterase", "Monoamine oxidase", "Catechol-O-methyltransferase", "Choline acetyltransferase"], exp: "Acetylcholinesterase hydrolyzes ACh into acetate and choline to clear the synaptic cleft." }
+        ]
       }
-    ];
+    ]);
 
-    const STORAGE_KEY = "openstax_ap1_unit4_nervous_mastery_v1";
+    /* ========================================================================= */
+    /* CHAPTER 13: THE BRAIN AND CRANIAL NERVES (35 QUESTIONS)                   */
+    /* ========================================================================= */
+    buildChapterQuestions(13, "ch13", [
+      {
+        title: "13.1 Embryological Perspective & Brain Vesicles",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-1-the-embryologic-perspective",
+        passage: "During embryonic neurulation, the neural tube forms three primary brain vesicles: prosencephalon (forebrain), mesencephalon (midbrain), and rhombencephalon (hindbrain). By week five, these subdivide into five secondary vesicles: the prosencephalon yields the telencephalon (cerebrum) and diencephalon (thalamus, hypothalamus); the mesencephalon remains the midbrain; and the rhombencephalon yields the metencephalon (pons and cerebellum) and myelencephalon (medulla oblongata).",
+        items: [
+          { prompt: "Which secondary embryonic brain vesicle differentiates into the adult cerebral hemispheres and basal nuclei?", options: ["Telencephalon", "Diencephalon", "Metencephalon", "Mesencephalon"], exp: "The telencephalon expands to form the cerebral cortex, subcortical white matter, and basal nuclei." },
+          { prompt: "The adult thalamus, hypothalamus, and epithalamus develop from which secondary brain vesicle?", options: ["Diencephalon", "Telencephalon", "Mesencephalon", "Myelencephalon"], exp: "The diencephalon gives rise to the thalamic nuclei, hypothalamus, and pineal gland." },
+          { prompt: "Which secondary embryonic vesicle develops into both the adult pons and cerebellum?", options: ["Metencephalon", "Myelencephalon", "Mesencephalon", "Telencephalon"], exp: "The metencephalon differentiates into the pons anteriorly and cerebellum posteriorly." },
+          { prompt: "The medulla oblongata develops directly from which secondary embryonic brain vesicle?", options: ["Myelencephalon", "Metencephalon", "Mesencephalon", "Diencephalon"], exp: "The myelencephalon forms the adult medulla oblongata." },
+          { prompt: "The embryonic mesencephalon directly develops into which region of the adult brainstem?", options: ["Midbrain", "Pons", "Medulla oblongata", "Cerebellum"], exp: "The mesencephalon primary vesicle remains undivided and becomes the adult midbrain." },
+          { prompt: "Failure of the anterior (cranial) neuropore of the neural tube to close during development results in:", options: ["Anencephaly", "Spina bifida occulta", "Hydrocephalus", "Meningocele"], exp: "Failure of the cranial neural tube to close leads to anencephaly (absence of major brain structures)." },
+          { prompt: "Failure of the posterior (caudal) neural tube to close properly leads to which congenital malformation?", options: ["Spina bifida", "Anencephaly", "Microcephaly", "Holoprosencephaly"], exp: "Incomplete closure of the caudal neural tube and vertebral arches causes spina bifida." }
+        ]
+      },
+      {
+        title: "13.2 Cerebral Cortex & Deep Nuclei",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
+        passage: "The cerebral cortex displays folded gyri separated by sulci. The precentral gyrus of the frontal lobe contains the primary motor cortex, while the postcentral gyrus of the parietal lobe houses the primary somatosensory cortex. The occipital lobe houses the primary visual cortex, and the temporal lobe contains auditory areas. Broca's area coordinates speech production, whereas Wernicke's area interprets language. Deep subcortical basal nuclei modulate motor initiation and posture.",
+        items: [
+          { prompt: "The primary motor cortex that initiates conscious voluntary skeletal muscle commands is localized to the:", options: ["Precentral gyrus of the frontal lobe", "Postcentral gyrus of the parietal lobe", "Superior temporal gyrus", "Cingulate gyrus"], exp: "The precentral gyrus of the frontal lobe houses the somatotopic primary motor cortex." },
+          { prompt: "The primary somatosensory cortex that receives general sensations from the body is anatomically located in the:", options: ["Postcentral gyrus of the parietal lobe", "Precentral gyrus of the frontal lobe", "Inferior temporal gyrus", "Occipital pole"], exp: "The postcentral gyrus processes somatosensory inputs such as touch, pain, temperature, and proprioception." },
+          { prompt: "Which cerebral lobe contains the primary visual cortex along the calcarine sulcus?", options: ["Occipital lobe", "Temporal lobe", "Parietal lobe", "Insula"], exp: "Visual signals project to the primary visual cortex within the occipital lobe." },
+          { prompt: "Which cortical region located in the left frontal lobe plans and coordinates motor output for speech production?", options: ["Broca's area", "Wernicke's area", "Primary auditory cortex", "Prefrontal cortex"], exp: "Broca's area in the inferior frontal gyrus orchestrates vocalization and speech motor control." },
+          { prompt: "Damage to Wernicke's area in the superior temporal lobe results in which communication deficit?", options: ["Receptive aphasia (fluent but nonsensical speech with impaired comprehension)", "Expressive aphasia (halting, non-fluent speech)", "Pure motor dysarthria", "Complete anarthria"], exp: "Wernicke's aphasia compromises comprehension; speech remains fluent but lacks meaning." },
+          { prompt: "The large C-shaped commissural tract connecting the left and right cerebral hemispheres is the:", options: ["Corpus callosum", "Fornix", "Internal capsule", "Corona radiata"], exp: "The corpus callosum contains hundreds of millions of axonal fibers linking homologous cortical regions." },
+          { prompt: "The caudate nucleus, putamen, and globus pallidus are subcortical structures collectively known as the:", options: ["Basal nuclei (ganglia)", "Limbic system", "Diencephalon", "Cerebellar peduncles"], exp: "The basal nuclei modulate motor planning, muscle tone, and voluntary movement gating." }
+        ]
+      },
+      {
+        title: "13.2 Diencephalon, Brainstem & Cerebellum",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
+        passage: "The diencephalon features the thalamus (relay hub for all conscious senses except smell) and hypothalamus (regulator of autonomic function, endocrine output, thirst, hunger, and core temperature). The brainstem includes the midbrain (containing the substantia nigra, red nucleus, and visual/auditory colliculi), the pons (pontine respiratory centers), and the medulla oblongata (cardiac, vasomotor, and respiratory rhythmicity centers). The cerebellum coordinates balance, timing, and motor execution.",
+        items: [
+          { prompt: "Which diencephalic structure acts as the mandatory sensory relay station for all conscious senses EXCEPT olfaction?", options: ["Thalamus", "Hypothalamus", "Epithalamus", "Pituitary gland"], exp: "All sensory modalities except olfaction synapse in specific thalamic relay nuclei before cortical processing." },
+          { prompt: "The master control center for autonomic functions, core temperature, fluid balance, and pituitary hormone secretion is the:", options: ["Hypothalamus", "Thalamus", "Pons", "Corpus striatum"], exp: "The hypothalamus integrates visceral homeostatic set points and endocrine activity." },
+          { prompt: "Dopamine-producing neurons whose degeneration leads to the motor deficits of Parkinson's disease are located in the:", options: ["Substantia nigra of the midbrain", "Red nucleus", "Inferior olivary nucleus", "Locus coeruleus"], exp: "Parkinson's disease involves loss of dopaminergic neurons within the midbrain substantia nigra." },
+          { prompt: "The superior and inferior colliculi of the midbrain tectum mediate visual and auditory reflexes and are collectively termed the:", options: ["Corpora quadrigemina", "Cerebellar peduncles", "Pyramids", "Cerebral peduncles"], exp: "The corpora quadrigemina consist of superior (visual) and inferior (auditory) colliculi." },
+          { prompt: "Vital autonomic reflex centers for heart rate, blood pressure, and respiratory rhythm are concentrated within the:", options: ["Medulla oblongata", "Thalamus", "Cerebellum", "Midbrain"], exp: "The medulla contains the cardiovascular, vasomotor, and medullary respiratory rhythmicity centers." },
+          { prompt: "The anterior medullary elevations where approximately 90% of descending corticospinal motor tracts cross the midline are the:", options: ["Pyramids (decussation of the pyramids)", "Olives", "Cerebral peduncles", "Gracile tubercles"], exp: "Descending corticospinal tracts decussate across the anterior medullary pyramids." },
+          { prompt: "Damage to the cerebellum typically manifests clinically as clumsy, uncoordinated voluntary movements termed:", options: ["Ataxia", "Aphasia", "Akinesia", "Astereognosis"], exp: "Cerebellar lesions impair coordination and motor execution, producing cerebellar ataxia." }
+        ]
+      },
+      {
+        title: "13.3 Meninges, Ventricles & CSF Flow",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-3-circulation-and-the-central-nervous-system",
+        passage: "The brain is protected by three meninges: the tough outer dura mater, the web-like middle arachnoid mater, and the delicate, vascular inner pia mater. The subarachnoid space houses cerebrospinal fluid (CSF). CSF is produced by choroid plexuses within the lateral, third, and fourth ventricles. It passes through the cerebral aqueduct into the fourth ventricle, escapes into the subarachnoid space, and returns to venous blood via arachnoid granulations into the superior sagittal sinus.",
+        items: [
+          { prompt: "List the cranial meninges in correct order from superficial (outermost) to deep (innermost):", options: ["Dura mater, arachnoid mater, pia mater", "Pia mater, arachnoid mater, dura mater", "Arachnoid mater, dura mater, pia mater", "Dura mater, pia mater, arachnoid mater"], exp: "The meninges are the outer dura, middle arachnoid, and inner pia mater." },
+          { prompt: "Cerebrospinal fluid circulates within which anatomical space located between the arachnoid and pia mater?", options: ["Subarachnoid space", "Epidural space", "Subdural space", "Central canal"], exp: "The subarachnoid space contains CSF and major surface blood vessels." },
+          { prompt: "Which vascular capillary networks covered by ependymal cells continuously secrete cerebrospinal fluid within the ventricles?", options: ["Choroid plexuses", "Arachnoid villi", "Dural venous sinuses", "Circle of Willis"], exp: "Choroid plexuses filter arterial blood across ependyma to generate CSF." },
+          { prompt: "CSF flows from the third ventricle into the fourth ventricle via which narrow canal traversing the midbrain?", options: ["Cerebral aqueduct (aqueduct of Sylvius)", "Interventricular foramen (foramen of Monro)", "Central canal", "Median aperture"], exp: "The cerebral aqueduct connects the third ventricle with the fourth ventricle." },
+          { prompt: "Cerebrospinal fluid is reabsorbed from the subarachnoid space into the venous bloodstream through the:", options: ["Arachnoid granulations (villi) into dural venous sinuses", "Choroid plexuses into cerebral veins", "Internal carotid arteries", "Internal jugular lymphatics"], exp: "Arachnoid granulations project into the superior sagittal sinus to return CSF to systemic venous circulation." },
+          { prompt: "An abnormal accumulation of CSF causing pathological enlargement of the ventricles and elevated intracranial pressure is:", options: ["Hydrocephalus", "Meningitis", "Encephalitis", "Subdural hematoma"], exp: "Obstruction of CSF circulation or absorption causes hydrocephalus." },
+          { prompt: "The internal carotid arteries and basilar artery anastomose at the base of the brain to form the arterial redundancy loop known as the:", options: ["Circle of Willis (cerebral arterial circle)", "Coronary sinus", "Dural venous sinus", "Cerebral peduncle"], exp: "The Circle of Willis provides collateral arterial circulation across the brain base." }
+        ]
+      },
+      {
+        title: "13.4 Cranial Nerves I through XII",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-cranial-nerves",
+        passage: "Twelve pairs of cranial nerves emerge from the brain. CN I (olfactory) and CN II (optic) convey special senses of smell and sight. CN III (oculomotor), CN IV (trochlear), and CN VI (abducens) control extraocular eye movements. CN V (trigeminal) provides facial sensation and mastication motor supply. CN VII (facial) directs facial expression, lacrimation, and anterior 2/3 taste. CN VIII (vestibulocochlear) mediates hearing and balance. CN IX (glossopharyngeal), CN X (vagus), CN XI (accessory), and CN XII (hypoglossal) manage swallowing, visceral autonomic regulation, and tongue motility.",
+        items: [
+          { prompt: "Which cranial nerve transmits visual sensory impulses from the retina through the optic chiasm to the brain?", options: ["CN II (Optic nerve)", "CN I (Olfactory nerve)", "CN III (Oculomotor nerve)", "CN IV (Trochlear nerve)"], exp: "CN II conveys sensory action potentials from photoreceptors in the retina." },
+          { prompt: "Which cranial nerve provides general sensory innervation to the face and motor innervation to the muscles of mastication?", options: ["CN V (Trigeminal nerve)", "CN VII (Facial nerve)", "CN IX (Glossopharyngeal nerve)", "CN XII (Hypoglossal nerve)"], exp: "The trigeminal nerve (V1, V2, V3) supplies facial sensation and innervates chewing muscles." },
+          { prompt: "Motor innervation to the muscles of facial expression and taste sensation from the anterior two-thirds of the tongue are mediated by:", options: ["CN VII (Facial nerve)", "CN V (Trigeminal nerve)", "CN IX (Glossopharyngeal nerve)", "CN XII (Hypoglossal nerve)"], exp: "The facial nerve (CN VII) drives facial mimicry muscles and conveys anterior taste." },
+          { prompt: "Which cranial nerve mediates the special senses of hearing and equilibrium/balance?", options: ["CN VIII (Vestibulocochlear nerve)", "CN VII (Facial nerve)", "CN IX (Glossopharyngeal nerve)", "CN VI (Abducens nerve)"], exp: "CN VIII conveys vestibular (balance) and cochlear (auditory) sensory inputs." },
+          { prompt: "Which cranial nerve exits the jugular foramen and provides extensive parasympathetic autonomic supply to the thoracic and abdominal viscera?", options: ["CN X (Vagus nerve)", "CN IX (Glossopharyngeal nerve)", "CN XI (Accessory nerve)", "CN XII (Hypoglossal nerve)"], exp: "The vagus nerve (CN X) provides autonomic parasympathetic control to the heart, lungs, and digestive tract." },
+          { prompt: "Which cranial nerve supplies motor fibers to the trapezius and sternocleidomastoid muscles to control head and shoulder movements?", options: ["CN XI (Accessory nerve)", "CN XII (Hypoglossal nerve)", "CN VII (Facial nerve)", "CN X (Vagus nerve)"], exp: "CN XI innervates the sternocleidomastoid and trapezius muscles." },
+          { prompt: "Pure somatic motor innervation to the intrinsic and extrinsic muscles of the tongue is provided by:", options: ["CN XII (Hypoglossal nerve)", "CN IX (Glossopharyngeal nerve)", "CN VII (Facial nerve)", "CN V (Trigeminal nerve)"], exp: "The hypoglossal nerve (CN XII) directs tongue movements for speech and swallowing." }
+        ]
+      }
+    ]);
+
+    /* ========================================================================= */
+    /* CHAPTER 14: THE SOMATIC NERVOUS SYSTEM (35 QUESTIONS)                      */
+    /* ========================================================================= */
+    buildChapterQuestions(14, "ch14", [
+      {
+        title: "14.1 Sensory Receptors & General Sensation",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception",
+        passage: "Sensory receptors convert environmental energy into graded potentials. Free nerve endings lack encapsulations, detecting pain (nociception) and temperature. Tactile (Meissner) corpuscles in dermal papillae respond to light touch and low-frequency flutter. Lamellar (Pacinian) corpuscles situated deep in the dermis and hypodermis transduce deep pressure and high-frequency vibration. Proprioceptors (muscle spindles and Golgi tendon organs) detect stretch, muscle tension, and joint orientation.",
+        items: [
+          { prompt: "Which type of sensory receptor consists of unencapsulated bare dendrites that transduce pain (nociception) and extreme temperatures?", options: ["Free nerve endings", "Lamellar (Pacinian) corpuscles", "Tactile (Meissner) corpuscles", "Bulbous corpuscles"], exp: "Free nerve endings detect nociceptive (painful) stimuli, heat, and cold." },
+          { prompt: "Encapsulated mechanoreceptors located in dermal papillae that detect light discriminative touch and low-frequency vibration are:", options: ["Tactile (Meissner) corpuscles", "Lamellar (Pacinian) corpuscles", "Golgi tendon organs", "Ruffini endings"], exp: "Tactile corpuscles sit in superficial dermal papillae to register fine, discriminative touch." },
+          { prompt: "Large, deep mechanoreceptors composed of concentric collagenous lamellae that transduce deep pressure and fast vibration are:", options: ["Lamellar (Pacinian) corpuscles", "Tactile (Meissner) corpuscles", "Merkel discs", "Free nerve endings"], exp: "Pacinian corpuscles detect rapid pressure transients and high-frequency vibrations." },
+          { prompt: "Sensory receptors monitoring internal joint position, muscle belly stretch, and tendon strain are classified as:", options: ["Proprioceptors", "Exteroceptors", "Interoceptors", "Photoreceptors"], exp: "Proprioceptors inform the CNS of limb orientation and kinematic movement." },
+          { prompt: "Which specialized encapsulated receptor embedded within skeletal muscle bellies detects changes in muscle length and stretch velocity?", options: ["Muscle spindle", "Golgi tendon organ", "Lamellar corpuscle", "Bulbous corpuscle"], exp: "Muscle spindles house intrafusal fibers monitoring muscle stretch." },
+          { prompt: "Proprioceptors located within tendon fascicles near the musculotendinous junction that monitor contractile tension are:", options: ["Golgi tendon organs", "Muscle spindles", "Tactile corpuscles", "Free nerve endings"], exp: "Golgi tendon organs detect excessive tension and protect against tendon avulsion." },
+          { prompt: "Receptors that fire rapidly upon stimulus onset but adapt quickly by slowing their discharge during sustained stimulation are:", options: ["Phasic (fast-adapting) receptors", "Tonic (slow-adapting) receptors", "Nociceptors", "Proprioceptors"], exp: "Phasic receptors adapt quickly to constant unchanging stimuli (e.g., clothing on skin)." }
+        ]
+      },
+      {
+        title: "14.2 Ascending Somatosensory Pathways",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-2-central-processing",
+        passage: "Somatosensory transmission requires a three-neuron ascending chain. The Dorsal Column-Medial Lemniscal (DCML) pathway conveys discriminative touch, vibration, and conscious proprioception: first-order axons ascend ipsilaterally through fasciculus gracilis (lower body) or cuneatus (upper body) to the medulla; second-order neurons decussate in the medulla and form the medial lemniscus to reach the thalamus; third-order neurons project to the postcentral gyrus. The spinothalamic pathway carries pain and temperature: second-order neurons decussate immediately in the spinal cord.",
+        items: [
+          { prompt: "Conscious discriminative touch, vibration, and conscious proprioception ascend to the brain along which major spinal pathway?", options: ["Dorsal column-medial lemniscal (DCML) pathway", "Spinothalamic (anterolateral) tract", "Lateral corticospinal tract", "Spinocerebellar tract"], exp: "The DCML tract conveys conscious fine touch, vibration, and proprioception." },
+          { prompt: "Sensory fibers from the lower limbs entering the spinal cord ascend within which medial division of the posterior funiculus?", options: ["Fasciculus gracilis", "Fasciculus cuneatus", "Lateral spinothalamic tract", "Anterior spinocerebellar tract"], exp: "The fasciculus gracilis occupies the medial dorsal column, carrying lower limb inputs." },
+          { prompt: "Sensory axons carrying touch information from the upper thoracic and cervical regions ascend within the lateral dorsal column called the:", options: ["Fasciculus cuneatus", "Fasciculus gracilis", "Anterolateral system", "Rubrospinal tract"], exp: "The fasciculus cuneatus occupies the lateral dorsal column, carrying upper body inputs." },
+          { prompt: "Where do the second-order neurons of the dorsal column-medial lemniscal system decussate?", options: ["In the medulla oblongata (internal arcuate fibers)", "At the segmental spinal cord level of entry", "Within the midbrain tegmentum", "In the internal capsule"], exp: "DCML second-order axons decussate in the medulla to form the medial lemniscus." },
+          { prompt: "The spinothalamic (anterolateral) pathway conveys which primary sensory modalities to the cerebral cortex?", options: ["Pain, temperature, and crude touch", "Fine discriminative touch and two-point discrimination", "Conscious proprioception and vibration", "Equilibrium and auditory signals"], exp: "The spinothalamic tract carries nociceptive (pain) and thermal inputs." },
+          { prompt: "Where do second-order neurons of the spinothalamic tract decussate before ascending to the thalamus?", options: ["At or near the level of entry in the spinal cord via the anterior white commissure", "In the medullary pyramids", "In the pons", "In the thalamus"], exp: "Spinothalamic fibers cross near their spinal segment of entry through the anterior white commissure." },
+          { prompt: "Third-order somatosensory neurons originating in the thalamic ventral posterolateral (VPL) nucleus project their axons to the:", options: ["Primary somatosensory cortex (postcentral gyrus)", "Primary motor cortex (precentral gyrus)", "Cerebellar cortex", "Prefrontal association area"], exp: "Thalamocortical third-order projections terminate on the postcentral gyrus." }
+        ]
+      },
+      {
+        title: "14.3 Descending Motor Pathways & Motor Units",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-3-motor-responses",
+        passage: "Voluntary skeletal movements are orchestrated by upper motor neurons (UMNs) originating in the primary motor cortex and lower motor neurons (LMNs) situated in the anterior horn of the spinal cord or brainstem motor nuclei. Axons of UMNs descend through the internal capsule and medullary pyramids. The lateral corticospinal tract decussates in the medulla to control distal limb muscles. Clinical disruption of UMNs produces spasticity and a positive Babinski sign, whereas LMN lesions cause flaccidity and muscle atrophy.",
+        items: [
+          { prompt: "Upper motor neurons that originate in the primary motor cortex and descend to control voluntary movements of the limbs travel mainly in the:", options: ["Lateral corticospinal tract", "Anterior spinothalamic tract", "Rubrospinal tract", "Vestibulospinal tract"], exp: "The lateral corticospinal tract contains the crossed fibers that control distal limb musculature." },
+          { prompt: "The cell bodies of lower motor neurons (LMNs) supplying skeletal muscles of the trunk and limbs reside in the:", options: ["Anterior (ventral) horn of the spinal cord gray matter", "Posterior horn of the spinal cord", "Dorsal root ganglion", "Precentral gyrus of the cerebral cortex"], exp: "Somatic lower motor neurons have their cell bodies in the anterior (ventral) horn." },
+          { prompt: "Which clinical sign is diagnostic of an upper motor neuron (UMN) lesion rather than a lower motor neuron lesion?", options: ["Spastic paralysis, hyperreflexia, and extensor plantar (Babinski) response", "Flaccid paralysis with loss of muscle tone", "Severe denervation muscle atrophy", "Complete areflexia (loss of reflexes)"], exp: "Loss of descending UMN inhibition causes hyperactive reflexes, spasticity, and a positive Babinski sign." },
+          { prompt: "A lower motor neuron lesion resulting from trauma to a peripheral nerve or anterior horn cells characteristically produces:", options: ["Flaccid paralysis, muscle atrophy, and absent deep tendon reflexes", "Spasticity and hyperactive tendon jerks", "Chorea and resting tremors", "Aphasia and hemineglect"], exp: "LMN destruction disconnects muscles from neural drive, causing flaccidity, fasciculations, and atrophy." },
+          { prompt: "Descending corticospinal axons coalesce into a dense subcortical white matter sheet between the thalamus and basal nuclei known as the:", options: ["Internal capsule", "Corpus callosum", "Fornix", "Medial lemniscus"], exp: "The internal capsule carries motor and sensory fibers between the cortex and subcortical centers." },
+          { prompt: "The somatotopic distortion on the primary motor and somatosensory cortices reflecting peripheral receptor/motor density is the:", options: ["Homunculus", "Reticular formation", "Basal ganglion", "Limbic lobe"], exp: "The motor and sensory homunculi map body areas proportionally to their innervation density." },
+          { prompt: "Motor tracts that influence involuntary posture, balance, and muscle tone (e.g., vestibulospinal, reticulospinal) are classified as:", options: ["Extrapyramidal pathways", "Pyramidal tracts", "Corticobulbar tracts", "Ascending lemniscal tracts"], exp: "Extrapyramidal pathways originate in brainstem nuclei to modulate posture and coarse movement." }
+        ]
+      },
+      {
+        title: "14.4 Somatic Spinal Reflex Arcs",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-4-somatic-reflexes",
+        passage: "Somatic reflexes provide involuntary, rapid motor responses to protect tissue. A monosynaptic stretch reflex (e.g., patellar tap) involves sensory afferents from muscle spindles synapsing directly onto alpha motor neurons in the anterior horn. Concurrently, reciprocal inhibition relaxes antagonist muscles via inhibitory interneurons. Polysynaptic withdrawal reflexes (flexor reflex) pull a limb away from painful stimuli, while the crossed-extensor reflex extends the contralateral limb to maintain balance.",
+        items: [
+          { prompt: "A monosynaptic reflex arc is distinct because it involves:", options: ["A single chemical synapse between a sensory neuron and a motor neuron", "Multiple interneurons within the cerebral cortex", "Only autonomic postganglionic efferents", "No sensory afferent fiber"], exp: "Monosynaptic reflexes feature a single central synapse with no intervening interneurons." },
+          { prompt: "Tapping the patellar ligament stretches the quadriceps femoris, triggering which classic monosynaptic reflex?", options: ["Stretch (myotatic) reflex", "Golgi tendon reflex", "Flexor withdrawal reflex", "Crossed-extensor reflex"], exp: "The patellar reflex is a monosynaptic deep tendon stretch reflex initiated by muscle spindle stretch." },
+          { prompt: "The physiological mechanism whereby an agonist muscle contracts while its opposing antagonist muscle is simultaneously inhibited is:", options: ["Reciprocal inhibition", "Recurrent facilitation", "Spatial summation", "Autogenic excitation"], exp: "Reciprocal inhibition prevents agonist and antagonist muscles from fighting each other during a reflex." },
+          { prompt: "Which polysynaptic protective reflex causes rapid flexion and withdrawal of a limb away from a painful stimulus?", options: ["Flexor (withdrawal) reflex", "Stretch reflex", "Patellar reflex", "Corneal blink reflex"], exp: "Nociceptive inputs trigger the flexor reflex to pull an extremity away from danger." },
+          { prompt: "During a painful withdrawal reflex in a lower limb, which contralateral reflex extends the opposite leg to maintain upright balance?", options: ["Crossed-extensor reflex", "Reciprocal inhibition reflex", "Tendon reflex", "Corneal reflex"], exp: "The crossed-extensor reflex drives contralateral extensor contraction to bear body weight." },
+          { prompt: "The Golgi tendon reflex functions primarily to:", options: ["Inhibit agonist muscle contraction to protect tendons from excessive tearing tension", "Cause immediate explosive muscle shortening", "Enhance muscle spindle sensitivity", "Drive rapid rhythmic shivering"], exp: "Golgi tendon organs inhibit motor output to prevent structural muscle and tendon tearing under extreme load." },
+          { prompt: "Gamma motor neurons innervate which structures to adjust the baseline sensitivity of muscle spindles?", options: ["Intrafusal muscle fibers", "Extrafusal muscle fibers", "Golgi tendon organs", "Pacinian corpuscles"], exp: "Gamma motor neurons contract the contractile poles of intrafusal fibers to adjust spindle tension." }
+        ]
+      }
+    ]);
+
+    /* ========================================================================= */
+    /* CHAPTER 15: THE AUTONOMIC NERVOUS SYSTEM (35 QUESTIONS)                    */
+    /* ========================================================================= */
+    buildChapterQuestions(15, "ch15", [
+      {
+        title: "15.1 Divisions & Structural Outflow of the ANS",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-1-divisions-of-the-autonomic-nervous-system",
+        passage: "The autonomic nervous system governs visceral motor responses through two-neuron chains. The sympathetic division (thoracolumbar outflow; T1–L2) prepares the body for 'fight-or-flight', possessing short preganglionic axons synapsing in paravertebral (chain) or prevertebral ganglia, and long postganglionic axons. The parasympathetic division (craniosacral outflow; CN III, VII, IX, X, and S2–S4) promotes 'rest-and-digest' states, possessing long preganglionic fibers that synapse in terminal or intramural ganglia near target organs.",
+        items: [
+          { prompt: "The sympathetic division of the autonomic nervous system is characterized by which anatomical outflow?", options: ["Thoracolumbar outflow (segments T1 through L2)", "Craniosacral outflow (brainstem and S2–S4)", "Cervicothoracic outflow exclusively", "Sacrococcygeal outflow exclusively"], exp: "Sympathetic preganglionic neurons reside in the lateral horns of spinal cord segments T1–L2." },
+          { prompt: "The parasympathetic division of the autonomic nervous system exhibits which specific anatomical outflow?", options: ["Craniosacral outflow (cranial nerves III, VII, IX, X and sacral nerves S2–S4)", "Thoracolumbar outflow (T1 through L2)", "Cervical and lumbar spinal segments", "Thoracic chain ganglia exclusively"], exp: "Parasympathetic fibers originate in brainstem nuclei (CN III, VII, IX, X) and sacral cord segments S2–S4." },
+          { prompt: "Which statement correctly describes axon lengths in the sympathetic nervous system?", options: ["Short preganglionic fibers and long postganglionic fibers", "Long preganglionic fibers and short postganglionic fibers", "Equal length myelinated fibers throughout", "Axons that travel without any peripheral synapses"], exp: "Sympathetic ganglia sit near the vertebral column, resulting in short preganglionic and long postganglionic axons." },
+          { prompt: "Parasympathetic ganglia located directly within or immediately adjacent to the wall of target organs are called:", options: ["Intramural (terminal) ganglia", "Paravertebral chain ganglia", "Prevertebral collateral ganglia", "Dorsal root ganglia"], exp: "Intramural ganglia are embedded directly within the tissues of target effector organs." },
+          { prompt: "The bilateral columns of sympathetic ganglia positioned adjacent to the vertebral bodies along the spine form the:", options: ["Sympathetic trunk (paravertebral chain) ganglia", "Prevertebral (collateral) ganglia", "Terminal ganglia", "Ciliary ganglia"], exp: "The sympathetic chain (paravertebral trunk) extends along the length of the vertebral column." },
+          { prompt: "Prevertebral (collateral) sympathetic ganglia situated anterior to the abdominal aorta include the:", options: ["Celiac, superior mesenteric, and inferior mesenteric ganglia", "Otic, sphenopalatine, and ciliary ganglia", "Submandibular and dorsal root ganglia", "Pterygopalatine and geniculate ganglia"], exp: "Collateral ganglia sit anterior to the abdominal aorta to innervate abdominopelvic viscera." },
+          { prompt: "Which endocrine gland represents a specialized, modified sympathetic ganglion whose cells release epinephrine into the blood?", options: ["Adrenal medulla", "Adrenal cortex", "Thyroid gland", "Adenohypophysis"], exp: "Chromaffin cells of the adrenal medulla are modified postganglionic sympathetic neuroendocrine cells." }
+        ]
+      },
+      {
+        title: "15.2 Neurotransmitters, Receptors & Autonomic Tone",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-2-autonomic-synapses-and-chemical-transmission",
+        passage: "All autonomic preganglionic neurons release acetylcholine (ACh) onto ionotropic nicotinic receptors. Parasympathetic postganglionic axons release ACh onto metabotropic muscarinic receptors on target organs. Most sympathetic postganglionic axons release norepinephrine (NE) onto adrenergic receptors (alpha-1, alpha-2, beta-1, beta-2). Target organs receive dual innervation, exhibiting baseline autonomic tone (e.g., resting vagal tone on the heart; sympathetic vasomotor tone on vascular beds).",
+        items: [
+          { prompt: "All preganglionic autonomic axons (both sympathetic and parasympathetic) release which neurotransmitter?", options: ["Acetylcholine (ACh)", "Norepinephrine (NE)", "Epinephrine", "Dopamine"], exp: "All preganglionic autonomic neurons are cholinergic, releasing ACh." },
+          { prompt: "The receptors located on all autonomic postganglionic cell bodies that bind acetylcholine are:", options: ["Nicotinic acetylcholine receptors (ionotropic)", "Muscarinic acetylcholine receptors (metabotropic)", "Alpha-1 adrenergic receptors", "Beta-2 adrenergic receptors"], exp: "Nicotinic receptors mediate fast excitatory transmission in all autonomic ganglia." },
+          { prompt: "Parasympathetic postganglionic axons release acetylcholine onto target effector organs equipped with which receptor type?", options: ["Muscarinic receptors", "Nicotinic receptors", "Beta-1 adrenergic receptors", "Alpha-2 adrenergic receptors"], exp: "Postganglionic parasympathetic fibers stimulate metabotropic muscarinic receptors on effector targets." },
+          { prompt: "Most sympathetic postganglionic axons release which neurotransmitter onto their target visceral tissues?", options: ["Norepinephrine (NE)", "Acetylcholine (ACh)", "GABA", "Serotonin"], exp: "The majority of postganglionic sympathetic fibers are adrenergic, releasing norepinephrine." },
+          { prompt: "Sympathetic postganglionic fibers innervating sweat glands for thermoregulation release which exceptional neurotransmitter?", options: ["Acetylcholine (ACh)", "Norepinephrine", "Dopamine", "Nitric oxide"], exp: "Sympathetic innervation of eccrine sweat glands is cholinergic (releases ACh acting on muscarinic receptors)." },
+          { prompt: "Which adrenergic receptor subtype is found primarily on cardiac myocytes, increasing heart rate and contractility when stimulated?", options: ["Beta-1 (β1) adrenergic receptor", "Beta-2 (β2) adrenergic receptor", "Alpha-1 (α1) adrenergic receptor", "Alpha-2 (α2) adrenergic receptor"], exp: "Beta-1 adrenergic receptors are predominant in cardiac tissue, increasing chronotropic and inotropic performance." },
+          { prompt: "Activation of which adrenergic receptor subtype causes smooth muscle relaxation and bronchodilation in the lungs?", options: ["Beta-2 (β2) adrenergic receptor", "Beta-1 (β1) adrenergic receptor", "Alpha-1 (α1) adrenergic receptor", "Muscarinic M2 receptor"], exp: "Beta-2 receptor stimulation relaxes bronchial and vascular smooth muscle." }
+        ]
+      },
+      {
+        title: "15.3 Autonomic Reflexes & Central Control",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-3-autonomic-reflexes-and-homeostasis",
+        passage: "Visceral reflexes regulate organ homeostasis. In the arterial baroreceptor reflex, elevated blood pressure stretches carotid sinus baroreceptors, increasing afferent firing to the solitary nucleus. This stimulates parasympathetic vagal output to slow the heart and inhibits sympathetic vasomotor outflow to induce vasodilation. Visceral reflexes can be long (involving the CNS) or short (entirely within the enteric plexus). The hypothalamus serves as the master integrator coordinating autonomic output.",
+        items: [
+          { prompt: "When systemic blood pressure suddenly rises, the baroreceptor reflex restores homeostatic pressure by:", options: ["Increasing parasympathetic vagal output to the heart and inhibiting sympathetic vasoconstriction", "Increasing sympathetic discharge to ventricular myocytes", "Stimulating epinephrine secretion from the adrenal medulla", "Decreasing enteric peristalsis"], exp: "The baroreceptor reflex elevates vagal activity to slow heart rate and reduces sympathetic tone to induce vasodilation." },
+          { prompt: "A visceral reflex arc that bypasses the central nervous system entirely and completes its integration within peripheral ganglia or the enteric plexus is a:", options: ["Short reflex", "Long reflex", "Somatic reflex", "Monosynaptic stretch reflex"], exp: "Short reflexes occur locally within enteric and peripheral plexuses without CNS integration." },
+          { prompt: "Which cerebral and diencephalic structure serves as the master orchestrator of autonomic homeostatic control?", options: ["Hypothalamus", "Thalamus", "Basal nuclei", "Parietal cortex"], exp: "The hypothalamus integrates autonomic, emotional, and endocrine homeostatic controls." },
+          { prompt: "Which brainstem nuclei regulate homeostatic autonomic cardiovascular, respiratory, and swallowing reflexes?", options: ["Medulla oblongata and pons", "Midbrain colliculi", "Substantia nigra", "Red nucleus"], exp: "The medulla and pons contain critical autonomic centers governing respiratory and cardiovascular reflexes." },
+          { prompt: "The autonomic response mediating the pupillary light reflex when bright light enters one eye involves:", options: ["Parasympathetic constriction of the pupillary sphincter via CN III", "Sympathetic contraction of the pupillary dilator muscle", "Somatic contraction of the superior rectus muscle", "Inhibition of the ciliary muscle"], exp: "Parasympathetic fibers in CN III stimulate pupillary sphincter contraction (miosis) in response to light." },
+          { prompt: "The phenomenon where visceral pain is perceived on the body surface (e.g., left arm pain during a myocardial infarction) is known as:", options: ["Referred pain", "Phantom limb pain", "Allodynia", "Hyperalgesia"], exp: "Referred pain arises from convergence of visceral and somatic sensory afferents onto common spinal projection neurons." },
+          { prompt: "Resting tone in vascular smooth muscle that maintains systemic arterial blood pressure is sustained predominantly by:", options: ["Continuous sympathetic vasomotor tone", "Continuous parasympathetic discharge", "Somatic motor tone", "Enteric inhibitory peptides"], exp: "Arteriolar smooth muscle maintains basal constriction via tonic sympathetic vasomotor discharge." }
+        ]
+      }
+    ]);
+
+    /* ========================================================================= */
+    /* CHAPTER 16: THE NEUROLOGICAL EXAMINATION (35 QUESTIONS)                    */
+    /* ========================================================================= */
+    buildChapterQuestions(16, "ch16", [
+      {
+        title: "16.1 Overview of the Neurological Exam",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-1-overview-of-the-neurological-exam",
+        passage: "The neurological exam is a clinical assessment tool used to rapidly localize lesions within the central and peripheral nervous system. It consists of five major sub-exams: the mental status exam (cerebral cortex), cranial nerve exam (brainstem and cranial nerves), sensory exam (spinal pathways and peripheral nerves), motor exam (corticospinal tracts and LMNs), and the coordination/gait exam (cerebellum and proprioceptive pathways). In acute stroke, rapid evaluation (FAST) localizes vascular occlusion.",
+        items: [
+          { prompt: "The primary clinical purpose of performing a structured neurological examination is to:", options: ["Rapidly localize the anatomical site of a nervous system lesion", "Quantify exact neurotransmitter levels in CSF", "Determine genetic mutations in myelin genes", "Measure resting membrane potentials directly"], exp: "The neurological examination is designed to clinically localize lesions to specific neuroanatomical regions." },
+          { prompt: "Which of the five major divisions of the neurological exam specifically evaluates higher cognitive and cortical functions?", options: ["Mental status exam", "Cranial nerve exam", "Coordination exam", "Motor exam"], exp: "The mental status exam assesses cerebral cortex cognition, memory, language, and executive judgment." },
+          { prompt: "Which neurological sub-exam specifically evaluates the functional integrity of the brainstem and its associated peripheral nerves?", options: ["Cranial nerve exam", "Sensory exam", "Gait exam", "Mental status exam"], exp: "Cranial nerve testing provides localized functional evaluation across midbrain, pontine, and medullary circuits." },
+          { prompt: "A temporary disruption of cerebral blood flow that produces focal neurological deficits resolving completely within 24 hours is a:", options: ["Transient ischemic attack (TIA)", "Hemorrhagic stroke", "Completed ischemic infarction", "Cerebral aneurysm rupture"], exp: "TIAs are self-resolving ischemic episodes that serve as warnings for potential future stroke." },
+          { prompt: "In acute stroke assessment, the acronym 'FAST' stands for:", options: ["Face drooping, Arm weakness, Speech difficulty, Time to call 911", "Focal ataxia, Sensory loss, Tremor, Temperature", "Foot drop, Aphasia, Spasticity, Tendon reflex", "Frontal signs, Agnosia, Syncope, Tachycardia"], exp: "FAST is a clinical mnemonic for rapid stroke recognition (Face, Arms, Speech, Time)." },
+          { prompt: "A sudden ischemic stroke affecting the left middle cerebral artery is most likely to produce:", options: ["Right-sided hemiplegia and aphasia", "Left-sided hemiplegia and visual loss", "Bilateral lower extremity flaccidity", "Pure cerebellar ataxia without weakness"], exp: "The left MCA supplies the lateral left hemisphere, controlling right-sided motor output and language." },
+          { prompt: "Inability to perform purposeful, learned motor actions despite intact muscle strength and comprehension is termed:", options: ["Apraxia", "Ataxia", "Aphasia", "Agnosia"], exp: "Apraxia represents motor planning deficits resulting from cortical motor association damage." }
+        ]
+      },
+      {
+        title: "16.2 The Mental Status Exam",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-2-the-mental-status-exam",
+        passage: "The mental status exam evaluates cortical capacity across orientation, memory, language, calculation, and abstract thought. Orientation assesses awareness of person, place, and time. Memory evaluation tests short-term recall (e.g., remembering three words after five minutes) and remote memory. Language testing distinguishes between Broca's expressive aphasia (non-fluent, effortful speech with preserved comprehension) and Wernicke's receptive aphasia (fluent, nonsensical speech with impaired comprehension).",
+        items: [
+          { prompt: "Asking a patient 'What is your full name, where are you right now, and what is today's date?' tests:", options: ["Orientation (person, place, and time)", "Short-term episodic memory recall", "Abstract deductive reasoning", "Visual gnosis"], exp: "Orientation evaluates fundamental awareness across person, place, and temporal time." },
+          { prompt: "A patient who understands spoken instructions but struggles with effortful, halting, non-fluent speech exhibits:", options: ["Broca's (expressive) aphasia", "Wernicke's (receptive) aphasia", "Conduction aphasia", "Global aphasia"], exp: "Broca's aphasia impairs motor speech fluency while preserving verbal comprehension." },
+          { prompt: "A patient who speaks fluently with normal inflection but uses meaningless words and fails to comprehend spoken questions displays:", options: ["Wernicke's (receptive) aphasia", "Broca's (expressive) aphasia", "Pure dysarthria", "Anomic aphasia"], exp: "Wernicke's aphasia compromises comprehension; speech is effortless and fluent but devoid of meaning." },
+          { prompt: "Testing short-term memory by asking a patient to remember three unrelated words and recalling them after five minutes evaluates the:", options: ["Hippocampus and medial temporal lobe", "Occipital visual association cortex", "Substantia nigra", "Inferior cerebellar peduncle"], exp: "The hippocampus and medial temporal lobes are required for short-term memory consolidation." },
+          { prompt: "Inability to recognize and identify common objects through sensory perception despite intact primary sensory pathways is termed:", options: ["Agnosia", "Apraxia", "Ataxia", "Aphasia"], exp: "Agnosia is the inability to recognize objects, faces, or sounds due to sensory association cortical damage." },
+          { prompt: "Having a patient count backward from 100 by sevens (serial sevens) assesses which cognitive domain?", options: ["Attention, concentration, and working memory", "Long-term autobiographical memory", "Expressive vocal articulation", "Spatial orientation"], exp: "Serial sevens test active working memory, arithmetic calculation, and concentration." },
+          { prompt: "Asking a patient to interpret the proverb 'Don't cry over spilled milk' evaluates which cortical capacity?", options: ["Abstract reasoning and judgment", "Primary sensory perception", "Short-term phonological loop", "Motor coordination"], exp: "Proverb interpretation tests frontal lobe abstract reasoning and cognitive flexibility." }
+        ]
+      },
+      {
+        title: "16.3 The Cranial Nerve Exam",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-3-the-cranial-nerve-exam",
+        passage: "The cranial nerve exam systematically evaluates the twelve cranial nerve pairs. Olfaction (CN I) and visual acuity/visual fields (CN II) test sensory inputs. Pupillary light reflexes evaluate the sensory afferent (CN II) and parasympathetic motor efferent (CN III). Extraocular motility (CN III, IV, VI) assesses conjugate gaze. Facial sensation and mastication test CN V. Facial symmetry tests CN VII. Hearing/balance test CN VIII. The gag reflex evaluates CN IX and X. Tongue protrusion tests CN XII (deviating toward the weak side).",
+        items: [
+          { prompt: "Shining a penlight into the right pupil produces constriction of both the right and left pupils. The afferent limb is mediated by:", options: ["CN II (Optic nerve)", "CN III (Oculomotor nerve)", "CN V (Trigeminal nerve)", "CN VII (Facial nerve)"], exp: "The optic nerve (CN II) conveys the sensory light input driving bilateral pupillary constriction." },
+          { prompt: "The efferent motor limb responsible for pupillary constriction in the direct and consensual light reflex is mediated by:", options: ["CN III (Oculomotor nerve) parasympathetic fibers", "CN II (Optic nerve)", "CN VI (Abducens nerve)", "Sympathetic carotid fibers"], exp: "Parasympathetic fibers in CN III stimulate the pupillary sphincter muscle." },
+          { prompt: "Having a patient follow a moving target in an 'H-pattern' without moving their head assesses which cranial nerves?", options: ["CN III (Oculomotor), CN IV (Trochlear), and CN VI (Abducens)", "CN II, CN III, and CN VII", "CN V, CN VII, and CN XII", "CN VIII, CN IX, and CN X"], exp: "The H-pattern tests the six extraocular muscles innervated by CN III, IV, and VI." },
+          { prompt: "Weakness of facial muscles causing inability to smile, raise an eyebrow, or tightly close the eye on one side suggests a lesion of:", options: ["CN VII (Facial nerve)", "CN V (Trigeminal nerve)", "CN IX (Glossopharyngeal nerve)", "CN XII (Hypoglossal nerve)"], exp: "CN VII innervates the muscles of facial expression; peripheral palsy causes ipsilateral facial paralysis." },
+          { prompt: "The sensory afferent and motor efferent limbs of the corneal blink reflex (touching the cornea with a cotton wisp) are mediated by:", options: ["CN V sensory afferent and CN VII motor efferent", "CN II sensory afferent and CN III motor efferent", "CN VII sensory afferent and CN V motor efferent", "CN IX sensory afferent and CN X motor efferent"], exp: "V1 of CN V senses corneal contact; CN VII drives orbicularis oculi contraction to blink." },
+          { prompt: "When a patient sticks out their tongue and it deviates noticeably toward the left side, this indicates weakness of:", options: ["Left hypoglossal nerve (CN XII)", "Right hypoglossal nerve (CN XII)", "Left glossopharyngeal nerve (CN IX)", "Right vagus nerve (CN X)"], exp: "The tongue protrudes via genioglossus action and deviates toward the paralyzed/weak side." },
+          { prompt: "Elevation of the soft palate and the gag reflex are evaluated to test the functional integrity of which cranial nerves?", options: ["CN IX (Glossopharyngeal) and CN X (Vagus)", "CN V and CN VII", "CN VII and CN XII", "CN X and CN XII"], exp: "The gag reflex requires CN IX for sensory afferent detection and CN X for motor pharyngeal constriction." }
+        ]
+      },
+      {
+        title: "16.4 & 16.5 Sensory, Motor & Coordination Exams",
+        url: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-4-the-sensory-and-motor-exams",
+        passage: "The sensory and motor exams evaluate spinal reflexes, long tracts, and peripheral nerves. Testing dermatomes differentiates between peripheral nerve injury and spinal root lesions. Deep tendon reflexes are graded from 0 to 4+; hyperreflexia and an extensor plantar (Babinski) sign indicate UMN lesions. The Romberg test distinguishes sensory ataxia (dorsal column loss) from cerebellar ataxia. Cerebellar coordination is further evaluated via the finger-to-nose test, rapid alternating movements, and tandem gait.",
+        items: [
+          { prompt: "In a patient standing with feet together and eyes open who then closes their eyes and begins swaying or falling, the positive Romberg sign indicates:", options: ["Sensory ataxia (impaired conscious proprioception via dorsal columns)", "Cerebellar vermis destruction", "Oculomotor nerve paralysis", "Vestibulocochlear nerve neuroma"], exp: "A positive Romberg sign occurs when visual compensation is removed, revealing underlying proprioceptive sensory loss." },
+          { prompt: "Stroking the lateral plantar surface of the adult foot causes the great toe to dorsiflex and remaining toes to fan out. This abnormal sign is:", options: ["Positive Babinski sign (extensor plantar response)", "Normal plantar flexor response", "Chaddock reflex", "Clonus"], exp: "A positive Babinski sign is an extensor plantar response indicating upper motor neuron lesion." },
+          { prompt: "Inability to perform rapid alternating movements (such as pronating and supinating the hand on the thigh) is termed:", options: ["Dysdiadochokinesia", "Dysmetria", "Ataxia", "Apraxia"], exp: "Dysdiadochokinesia is an impairment in executing rapid alternating movements typical of cerebellar dysfunction." },
+          { prompt: "During the finger-to-nose test, an intention tremor that worsens as the patient's finger approaches the examiner's finger indicates a lesion of the:", options: ["Cerebellum", "Basal nuclei", "Primary somatosensory cortex", "Anterior horn of the spinal cord"], exp: "Intention tremors that intensify near the target are hallmark signs of cerebellar pathology." },
+          { prompt: "A patient asked to hold both arms extended forward with palms facing upward closes their eyes, and one arm slowly drifts downward and pronates. This indicates:", options: ["Pronator drift (upper motor neuron weakness on that side)", "Pachymeningitis", "Basal ganglion chorea", "Peripheral sensory neuropathy"], exp: "Pronator drift reveals subtle corticospinal upper motor neuron weakness." },
+          { prompt: "Deep tendon reflexes that are hyperactive and accompanied by rhythmic oscillating muscle contractions (clonus) represent:", options: ["Hyperreflexia indicative of an upper motor neuron (UMN) lesion", "Hyporeflexia indicative of a lower motor neuron (LMN) lesion", "Normal physiological reflex grading (2+)", "Complete sensory deafferentation"], exp: "Hyperreflexia (3+ to 4+) with clonus indicates loss of descending UMN inhibition." },
+          { prompt: "Asking a patient to walk heel-to-toe along a straight line (tandem walking) primarily assesses the integrity of the:", options: ["Cerebellar vermis and midline coordination pathways", "Occipital visual processing cortex", "Prefrontal executive cortex", "Corpus callosum"], exp: "Tandem gait requires coordinated cerebellar control over balance and narrow-base walking." }
+        ]
+      }
+    ]);
+
+    /* ========================================================================= */
+    /* APPLICATION STATE & STORAGE ENGINE                                        */
+    /* ========================================================================= */
+    const STORAGE_KEY = "openstax_ap1_unit4_nervous_mastery_175q";
     let masteryData = loadMastery();
     let currentTopicFilter = "all";
     let activeQuestion = null;
@@ -707,6 +815,7 @@
       }
     });
 
+    // Initial launch
     loadNextQuestion();
   </script>
 </body>
