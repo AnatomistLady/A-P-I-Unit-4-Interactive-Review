@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&amp;P I Unit 4 Mastery Arcade: Nervous System (Ch 12–16)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --header-bg: #0f172a;
+      --header-border: #1e293b;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --correct: #34d399;
+      --correct-bg: #064e3b;
+      --correct-border: #059669;
+      --incorrect: #f87171;
+      --incorrect-bg: #7f1d1d;
+      --incorrect-border: #dc2626;
+      --focus-ring: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1.25rem;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    header {
+      background-color: var(--header-bg);
+      color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--header-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    header h1 { font-size: 1.65rem; line-height: 1.3; margin-bottom: 0.5rem; color: #f8fafc; }
+    header p { font-size: 0.95rem; color: var(--text-muted); }
+    header p em { color: var(--primary); font-style: normal; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      background-color: var(--card-bg);
+      padding: 1rem;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .filter-btn {
+      padding: 0.5rem 0.85rem;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background-color: var(--primary);
+      color: #0b0f19;
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      background-color: #1e293b;
+      color: #93c5fd;
+      border: 1px solid #334155;
+    }
+
+    .passage-box {
+      border-left: 4px solid var(--primary);
+      background-color: #0f172a;
+      padding: 1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+    .passage-box p { margin-bottom: 0.5rem; }
+    .passage-box strong { color: #f8fafc; }
+    .passage-box a { color: var(--primary); font-weight: 600; text-decoration: underline; }
+    .passage-box a:hover { color: #7dd3fc; }
+
+    .question-prompt { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: #f9fafb; }
+
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.9rem 1.15rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #f3f4f6;
+      cursor: pointer;
+      line-height: 1.4;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--primary); background-color: #243048; }
+    .option-btn.selected { border-color: var(--primary); background-color: #0c4a6e; }
+    .option-btn.correct-choice {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: #a7f3d0;
+      font-weight: 600;
+    }
+    .option-btn.incorrect-choice {
+      background-color: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+      color: #fecaca;
+    }
+
+    .feedback-banner {
+      display: none;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .feedback-banner.correct {
+      display: block;
+      background-color: var(--correct-bg);
+      border-left: 4px solid var(--correct);
+      color: #d1fae5;
+    }
+    .feedback-banner.incorrect {
+      display: block;
+      background-color: var(--incorrect-bg);
+      border-left: 4px solid var(--incorrect);
+      color: #fee2e2;
+    }
+
+    .actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
+    .btn {
+      padding: 0.65rem 1.35rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-submit { background-color: var(--primary); color: #0b0f19; }
+    .btn-submit:hover:not(:disabled) { background-color: #0284c7; color: #ffffff; }
+    .btn-next { background-color: var(--accent); color: #0b0f19; display: none; }
+    .btn-next:hover { background-color: var(--accent-hover); color: #ffffff; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .empty-state { text-align: center; padding: 3rem 1rem; }
+    .empty-state h2 { font-size: 1.4rem; color: var(--correct); margin-bottom: 0.5rem; }
+    .reset-link {
+      background: none;
+      border: none;
+      color: var(--primary);
+      text-decoration: underline;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .reset-link:hover { color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header role="banner">
+      <h1>A&amp;P I Mastery Arcade: Nervous System (Ch 12–16)</h1>
+      <p>Aligned with OpenStax <em>Anatomy &amp; Physiology 2e</em>. Items exit your random rotation once mastered.</p>
+    </header>
+
+    <div class="controls" role="region" aria-label="Filters and reset">
+      <div class="filter-group" role="group" aria-label="Topic filter">
+        <button class="filter-btn active" data-topic="all">All Chapters</button>
+        <button class="filter-btn" data-topic="ch12">Ch 12: Nervous Tissue</button>
+        <button class="filter-btn" data-topic="ch13">Ch 13: Brain &amp; Cranial Nerves</button>
+        <button class="filter-btn" data-topic="ch14">Ch 14: Somatic System</button>
+        <button class="filter-btn" data-topic="ch15">Ch 15: Autonomic System</button>
+        <button class="filter-btn" data-topic="ch16">Ch 16: Neurological Exam</button>
+      </div>
+      <div>
+        <button id="resetMasteryBtn" class="reset-link">Reset Mastery</button>
+      </div>
+    </div>
+
+    <div class="stats-bar" role="region" aria-label="Practice statistics">
+      <div class="stat-card">
+        <div id="statRemaining" class="stat-value">0</div>
+        <div class="stat-label">In Queue</div>
+      </div>
+      <div class="stat-card">
+        <div id="statMastered" class="stat-value">0</div>
+        <div class="stat-label">Mastered</div>
+      </div>
+      <div class="stat-card">
+        <div id="statTotal" class="stat-value">0</div>
+        <div class="stat-label">Total Questions</div>
+      </div>
+      <div class="stat-card">
+        <div id="statPercent" class="stat-value">0%</div>
+        <div class="stat-label">Mastery Rate</div>
+      </div>
+    </div>
+
+    <main id="appWorkspace">
+      <section id="questionCard" class="quiz-card" aria-live="polite">
+        <span id="questionTag" class="badge">Topic</span>
+        
+        <div class="passage-box" id="passageContainer">
+          <p><strong>OpenStax Passage:</strong> <span id="passageText"></span></p>
+          <p>
+            <em>Deep Dive: </em><a id="readingLink" href="#" target="_blank" rel="noopener noreferrer">OpenStax Textbook Reference</a>
+          </p>
+        </div>
+
+        <p class="question-prompt" id="questionPrompt"></p>
+        <ul class="options-list" id="optionsList" role="radiogroup"></ul>
+        <div id="feedbackBox" class="feedback-banner" role="alert"></div>
+
+        <div class="actions">
+          <button id="submitBtn" class="btn btn-submit" disabled>Check Answer</button>
+          <button id="nextBtn" class="btn btn-next">Next Question &rarr;</button>
+        </div>
+      </section>
+
+      <section id="completedCard" class="quiz-card empty-state" style="display: none;">
+        <h2>Nervous System Unit Mastered!</h2>
+        <p>You have successfully mastered every question in this selected category without repeat prompts.</p>
+        <p style="margin-top: 0.5rem; color: var(--text-muted);">Select another chapter above or click "Reset Mastery" to practice again.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const questionBank = [
+      /* ========================================================================= */
+      /* CHAPTER 12: NERVOUS SYSTEM & NERVOUS TISSUE                               */
+      /* ========================================================================= */
+      {
+        id: "ns-01",
+        topic: "ch12",
+        topicName: "Ch 12: Nervous Divisions",
+        passage: "The nervous system is functionally partitioned into somatic and autonomic divisions. The somatic nervous system (SNS) is responsible for conscious perception and voluntary motor responses via skeletal muscle contraction. In contrast, the autonomic nervous system (ANS) governs involuntary visceral motor activities, regulating cardiac muscle, smooth muscle, and glandular secretion to maintain homeostatic equilibrium.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-1-basic-structure-and-function-of-the-nervous-system",
+        prompt: "Which division of the peripheral nervous system is responsible for conscious sensory perception and voluntary control of skeletal muscle contraction?",
+        options: ["Somatic nervous system", "Autonomic nervous system", "Enteric nervous system", "Parasympathetic nervous system"],
+        correct: 0,
+        explanation: "The somatic nervous system mediates voluntary skeletal muscle contraction and conscious sensory perception."
+      },
+      {
+        id: "ns-02",
+        topic: "ch12",
+        topicName: "Ch 12: Neuron Microanatomy",
+        passage: "Neurons exhibit specialized functional regions. Dendrites receive input from other neurons and convey graded potentials toward the soma (cell body). The axon emerges from the cell body at a tapered cone-shaped region called the axon hillock. Distal to the axon hillock lies the initial segment, where high densities of voltage-gated sodium channels create the trigger zone that initiates propagated action potentials.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+        prompt: "Action potentials are initiated in a multipolar neuron at which specialized region containing a high density of voltage-gated sodium channels?",
+        options: ["Axon hillock / initial segment (trigger zone)", "Nissl body", "Dendritic arbor", "Terminal bouton"],
+        correct: 0,
+        explanation: "The initial segment directly adjacent to the axon hillock functions as the trigger zone where summation leads to action potential firing."
+      },
+      {
+        id: "ns-03",
+        topic: "ch12",
+        topicName: "Ch 12: Glial Cells & BBB",
+        passage: "Neuroglia outnumber neurons in the central nervous system. Astrocytes possess expanded vascular end-feet that wrap around brain capillaries, stimulating capillary endothelial cells to form tight junctions that construct the blood-brain barrier (BBB). Oligodendrocytes produce the insulating myelin sheath in the CNS, while microglia function as resident immunocompetent macrophages. Ependymal cells line ventricular cavities and assist in circulating cerebrospinal fluid.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-3-glial-cells",
+        prompt: "Which central nervous system glial cells extend perivascular feet to maintain and regulate the physiological permeability of the blood-brain barrier?",
+        options: ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"],
+        correct: 0,
+        explanation: "Astrocytes induce and maintain endothelial tight junctions, creating the protective blood-brain barrier."
+      },
+      {
+        id: "ns-04",
+        topic: "ch12",
+        topicName: "Ch 12: Resting Potentials",
+        passage: "The resting membrane potential of a neuron (approximately -70 mV) is primarily maintained by non-gated potassium leakage channels and active ion transport. Because the neuronal membrane possesses significantly more open K+ leak channels than Na+ leak channels, potassium diffuses outward down its concentration gradient. The Na+/K+ ATPase pump maintains the underlying gradients by continuously hydrolyzing ATP to pump 3 Na+ out of the cell for every 2 K+ brought inside.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
+        prompt: "What primary mechanism maintains the resting negative intracellular potential by continuously transporting 3 Na+ ions out of the cell for every 2 K+ ions imported?",
+        options: ["Na+/K+ ATPase pump", "Voltage-gated calcium channels", "Anion exchange exchangers", "Nicotinic cholinergic receptors"],
+        correct: 0,
+        explanation: "The electrogenic Na+/K+ ATPase pump exports 3 Na+ for every 2 K+ imported, maintaining ionic concentration gradients."
+      },
+      {
+        id: "ns-05",
+        topic: "ch12",
+        topicName: "Ch 12: Action Potential Dynamics",
+        passage: "The rapid upstroke of an action potential occurs when local depolarization reaches threshold (typically -55 mV), triggering the opening of activation gates on voltage-gated sodium channels. Sodium rushes into the axoplasm, driving the transmembrane voltage toward +30 mV. At this peak, sodium inactivation gates close, while voltage-gated potassium channels open, allowing K+ to exit the neuron and repolarize the membrane back toward resting potential.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential",
+        prompt: "Which ionic event is directly responsible for the rapid depolarization phase of the neuronal action potential?",
+        options: ["Rapid influx of sodium ions through voltage-gated Na+ channels", "Rapid efflux of potassium ions through leak channels", "Efflux of chloride ions through ligand-gated channels", "Influx of calcium ions through terminal cisternae"],
+        correct: 0,
+        explanation: "Voltage-gated sodium channel opening drives a massive inward flux of Na+, rapidly depolarizing the axolemma."
+      },
+      {
+        id: "ns-06",
+        topic: "ch12",
+        topicName: "Ch 12: Synaptic Transmission",
+        passage: "Chemical neurotransmission occurs across the synaptic cleft. When an action potential reaches the presynaptic axon terminal, depolarization triggers the opening of voltage-gated calcium channels. Inward Ca2+ flux stimulates synaptic vesicles to fuse with the presynaptic membrane, releasing neurotransmitter via exocytosis into the cleft. Neurotransmitters diffuse across and bind to receptors on the postsynaptic membrane.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-5-communication-between-neurons",
+        prompt: "The exocytosis of neurotransmitter-filled vesicles from the presynaptic axon terminal is directly triggered by an influx of which ion?",
+        options: ["Calcium (Ca2+)", "Sodium (Na+)", "Potassium (K+)", "Magnesium (Mg2+)"],
+        correct: 0,
+        explanation: "Depolarization opens voltage-gated Ca2+ channels; the resulting calcium surge triggers snare-mediated vesicular fusion and exocytosis."
+      },
+
+      /* ========================================================================= */
+      /* CHAPTER 13: THE BRAIN & CRANIAL NERVES                                    */
+      /* ========================================================================= */
+      {
+        id: "ns-07",
+        topic: "ch13",
+        topicName: "Ch 13: Embryology of the Brain",
+        passage: "During the fifth week of embryonic development, the primary brain vesicles divide into five secondary vesicles. The prosencephalon subdivides into the telencephalon (destined to become the cerebral cortex, white matter, and basal nuclei) and the diencephalon (thalamus and hypothalamus). The mesencephalon remains the midbrain, while the rhombencephalon splits into the metencephalon (pons and cerebellum) and myelencephalon (medulla oblongata).",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-1-the-embryologic-perspective",
+        prompt: "Which secondary embryonic brain vesicle gives rise to the adult pons and cerebellum?",
+        options: ["Metencephalon", "Myelencephalon", "Telencephalon", "Diencephalon"],
+        correct: 0,
+        explanation: "The metencephalon differentiates into the adult pons and the cerebellum."
+      },
+      {
+        id: "ns-08",
+        topic: "ch13",
+        topicName: "Ch 13: Cortical Localization",
+        passage: "The primary motor cortex is mapped somatotopically to the precentral gyrus of the frontal lobe, initiating voluntary commands to skeletal muscles. Directly posterior to the central sulcus, situated within the postcentral gyrus of the parietal lobe, lies the primary somatosensory cortex. This region receives and processes general somatic sensory inputs regarding discriminative touch, pressure, pain, vibration, and temperature from across the body.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
+        prompt: "The primary somatosensory cortex is localized to which specific anatomical region of the cerebrum?",
+        options: ["Postcentral gyrus of the parietal lobe", "Precentral gyrus of the frontal lobe", "Superior temporal gyrus", "Calcarine sulcus of the occipital lobe"],
+        correct: 0,
+        explanation: "General somatic sensation maps somatotopically onto the postcentral gyrus of the parietal lobe."
+      },
+      {
+        id: "ns-09",
+        topic: "ch13",
+        topicName: "Ch 13: Diencephalic Sensory Relay",
+        passage: "The diencephalon consists primarily of the thalamus and hypothalamus. The thalamus acts as a major relay and processing station for nearly all incoming sensory information directed to the cerebral cortex. The only special sensory pathway that bypasses mandatory thalamic relay and projects directly into the cortical parenchyma is the olfactory pathway (sense of smell).",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
+        prompt: "Which special sensory pathway reaches the cerebral cortex directly without passing through a relay nucleus in the thalamus?",
+        options: ["Olfaction (Smell)", "Vision", "Auditory sensation", "Gustation (Taste)"],
+        correct: 0,
+        explanation: "Olfactory signals travel directly to the primary olfactory cortex without mandatory relay in the thalamus."
+      },
+      {
+        id: "ns-10",
+        topic: "ch13",
+        topicName: "Ch 13: Medulla & Pyramidal Decussation",
+        passage: "The inferior brainstem is formed by the medulla oblongata, which houses critical autonomic nuclei. The cardiovascular center regulates heart rate and blood vessel diameter, while the respiratory rhythmicity center sets the pace of pulmonary ventilation. Anteriorly, the descending corticospinal motor tracts form elevated columns called the pyramids, where approximately 90% of fibers cross the midline at the decussation of the pyramids.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system",
+        prompt: "The anatomical crossover of descending corticospinal motor tracts that produces contralateral voluntary muscle control occurs at which landmark?",
+        options: ["Decussation of the pyramids in the medulla oblongata", "Cerebral peduncles of the midbrain", "Middle cerebellar peduncles of the pons", "Corpus callosum"],
+        correct: 0,
+        explanation: "Fibers of the corticospinal tracts cross at the decussation of the pyramids on the anterior medulla."
+      },
+      {
+        id: "ns-11",
+        topic: "ch13",
+        topicName: "Ch 13: CSF Circulation",
+        passage: "Cerebrospinal fluid (CSF) is continually secreted by ependymal-covered capillary networks called choroid plexuses within the brain ventricles. Fluid flows from the lateral ventricles through the interventricular foramina into the third ventricle, passes down the cerebral aqueduct into the fourth ventricle, and enters the subarachnoid space. CSF is ultimately returned to the venous circulation by draining through arachnoid granulations into the superior sagittal sinus.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-3-circulation-and-the-central-nervous-system",
+        prompt: "Through which specialized structures does cerebrospinal fluid drain from the subarachnoid space into the dural venous sinuses?",
+        options: ["Arachnoid granulations (villi)", "Choroid plexuses", "Ependymal gap junctions", "Central canal of the spinal cord"],
+        correct: 0,
+        explanation: "Arachnoid granulations project through the dura mater into the superior sagittal sinus to return CSF to systemic venous circulation."
+      },
+      {
+        id: "ns-12",
+        topic: "ch13",
+        topicName: "Ch 13: Cranial Nerves",
+        passage: "The twelve pairs of cranial nerves are designated by Roman numerals. Cranial nerve X, the vagus nerve, extends beyond the head and neck to provide parasympathetic autonomic motor innervation to thoracic and abdominopelvic viscera, slowing heart rate and promoting digestive motility. Somatic motor supply to the tongue is delivered by CN XII (hypoglossal), while facial expression and taste on the anterior two-thirds of the tongue are governed by CN VII (facial).",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-cranial-nerves",
+        prompt: "Which cranial nerve provides the predominant parasympathetic autonomic supply to the heart, respiratory airways, and digestive tract?",
+        options: ["CN X (Vagus nerve)", "CN VII (Facial nerve)", "CN IX (Glossopharyngeal nerve)", "CN XII (Hypoglossal nerve)"],
+        correct: 0,
+        explanation: "The vagus nerve (CN X) provides extensive parasympathetic autonomic innervation to the thoracic and abdominopelvic viscera."
+      },
+
+      /* ========================================================================= */
+      /* CHAPTER 14: THE SOMATIC NERVOUS SYSTEM                                    */
+      /* ========================================================================= */
+      {
+        id: "ns-13",
+        topic: "ch14",
+        topicName: "Ch 14: Somatosensory Receptors",
+        passage: "Sensory receptors are classified by structure and location. Free nerve endings consist of bare dendrites detecting pain (nociception) and temperature. Proprioceptors, located in skeletal muscles, tendons, and joint capsules, continuously monitor muscle length, contractile tension, and body position in space. Tactile (Meissner) corpuscles detect light touch, while lamellar (Pacinian) corpuscles respond to deep pressure and vibration.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception",
+        prompt: "Sensory receptors located within muscle bellies, tendons, and joint capsules that provide continuous feedback regarding limb orientation and joint angles are classified as:",
+        options: ["Proprioceptors", "Exteroceptors", "Interoceptors", "Chemoreceptors"],
+        correct: 0,
+        explanation: "Proprioceptors monitor the position and movement of skeletal muscles and joints in three-dimensional space."
+      },
+      {
+        id: "ns-14",
+        topic: "ch14",
+        topicName: "Ch 14: Ascending Somatosensory Pathways",
+        passage: "Ascending somatosensory pathways consist of three-neuron chains. In the spinothalamic (anterolateral) tract, which conveys pain, temperature, and crude touch, first-order neurons enter the spinal cord via dorsal roots and synapse in the posterior horn. Second-order neurons decussate immediately at that segmental level through the anterior white commissure before ascending to the ventral posterolateral (VPL) nucleus of the thalamus. Third-order neurons then project to the primary somatosensory cortex.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-2-central-processing",
+        prompt: "Where do second-order neurons of the spinothalamic (anterolateral) pathway decussate before ascending to the thalamus?",
+        options: ["At the spinal cord level of entry via the anterior white commissure", "In the pyramids of the medulla oblongata", "Within the internal capsule", "In the cerebellar vermis"],
+        correct: 0,
+        explanation: "Spinothalamic second-order neurons cross the midline at or near the level of entry via the anterior white commissure."
+      },
+      {
+        id: "ns-15",
+        topic: "ch14",
+        topicName: "Ch 14: Upper vs. Lower Motor Neurons",
+        passage: "Lower motor neurons (LMNs) have their cell bodies in the anterior (ventral) horn of the spinal cord or motor cranial nerve nuclei of the brainstem, extending axons to innervate skeletal muscle fibers. Upper motor neuron (UMN) lesions (e.g., from stroke) produce spasticity, hyperreflexia, and a positive Babinski sign due to loss of descending inhibition. Conversely, LMN lesions produce flaccid paralysis, muscle atrophy, and absent deep tendon reflexes (areflexia).",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-3-motor-responses",
+        prompt: "Which clinical sign is uniquely characteristic of an upper motor neuron (UMN) lesion rather than a lower motor neuron lesion?",
+        options: ["Spasticity with hyperreflexia and an extensor plantar (Babinski) sign", "Flaccid paralysis", "Severe denervation muscle atrophy", "Absent deep tendon reflexes (areflexia)"],
+        correct: 0,
+        explanation: "Loss of descending inhibitory upper motor neuron modulation results in spasticity, clonus, hyperactive reflexes, and the Babinski sign."
+      },
+      {
+        id: "ns-16",
+        topic: "ch14",
+        topicName: "Ch 14: Somatic Reflex Arcs",
+        passage: "The somatic stretch reflex (such as the patellar reflex) is a monosynaptic reflex that protects muscles against over-stretching. Intrafusal fibers inside muscle spindles detect stretching and send excitatory action potentials through Type Ia sensory afferents directly to alpha motor neurons in the spinal cord, causing the homonymous agonist muscle to contract. Simultaneously, collateral afferent branches synapse on inhibitory interneurons to relax the antagonist muscle via reciprocal inhibition.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-4-somatic-reflexes",
+        prompt: "What specialized sensory receptor detects the rate and magnitude of muscle lengthening to initiate the stretch reflex?",
+        options: ["Muscle spindle", "Golgi tendon organ", "Lamellar corpuscle", "Bulbous corpuscle"],
+        correct: 0,
+        explanation: "Muscle spindles house intrafusal fibers that detect muscle stretch and trigger the monosynaptic stretch reflex."
+      },
+
+      /* ========================================================================= */
+      /* CHAPTER 15: THE AUTONOMIC NERVOUS SYSTEM                                  */
+      /* ========================================================================= */
+      {
+        id: "ns-17",
+        topic: "ch15",
+        topicName: "Ch 15: Autonomic Outflow Anatomy",
+        passage: "The autonomic nervous system utilizes a two-neuron efferent chain. The sympathetic division arises from the thoracolumbar region (T1–L2) of the spinal cord, featuring short preganglionic fibers that synapse in sympathetic chain (paravertebral) or prevertebral ganglia, and long postganglionic fibers. The parasympathetic division exhibits craniosacral outflow (cranial nerves III, VII, IX, X, and sacral levels S2–S4), with long preganglionic fibers synapsing in terminal or intramural ganglia near or inside effector organs.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-1-divisions-of-the-autonomic-nervous-system",
+        prompt: "The preganglionic cell bodies of the sympathetic nervous system emerge from which specific regions of the spinal cord?",
+        options: ["Thoracolumbar segments (T1 through L2)", "Craniosacral segments (brainstem and S2–S4)", "Cervical segments (C1 through C8)", "Sacrococcygeal segments exclusively"],
+        correct: 0,
+        explanation: "Sympathetic preganglionic neurons reside exclusively within the lateral horns of spinal cord segments T1 to L2 (thoracolumbar outflow)."
+      },
+      {
+        id: "ns-18",
+        topic: "ch15",
+        topicName: "Ch 15: Autonomic Neurotransmitters",
+        passage: "All autonomic preganglionic axons release acetylcholine (ACh), which binds to ionotropic nicotinic receptors on postganglionic neurons. Parasympathetic postganglionic axons also release ACh, but it binds to metabotropic muscarinic receptors on effector targets. Most sympathetic postganglionic neurons release norepinephrine (NE) onto alpha or beta adrenergic receptors on target tissues. A notable exception is the adrenal medulla, where preganglionic sympathetic fibers directly stimulate chromaffin cells to secrete epinephrine and norepinephrine into the bloodstream.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/15-2-autonomic-synapses-and-chemical-transmission",
+        prompt: "Which neurotransmitter and receptor type are universally utilized at the synapse between preganglionic and postganglionic neurons in both autonomic divisions?",
+        options: ["Acetylcholine binding to nicotinic receptors", "Norepinephrine binding to alpha-1 adrenergic receptors", "Acetylcholine binding to muscarinic receptors", "Epinephrine binding to beta-2 adrenergic receptors"],
+        correct: 0,
+        explanation: "All autonomic preganglionic neurons release acetylcholine (ACh), which stimulates nicotinic acetylcholine receptors on ganglion cells."
+      },
+
+      /* ========================================================================= */
+      /* CHAPTER 16: THE NEUROLOGICAL EXAM                                         */
+      /* ========================================================================= */
+      {
+        id: "ns-19",
+        topic: "ch16",
+        topicName: "Ch 16: Mental Status & Language",
+        passage: "The mental status exam assesses cognitive functions localized to the cerebral cortex. The orientation subtest evaluates awareness of person, place, and time, which requires intact memory and attention networks. Language assessment differentiates between expressive (Broca) aphasia—where speech production is halting despite preserved comprehension—and receptive (Wernicke) aphasia, where speech is fluent but devoid of meaning, accompanied by severe deficits in comprehension.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-2-the-mental-status-exam",
+        prompt: "A patient who speaks with normal fluency and rate but uses nonsensical words and fails to comprehend verbal questions is presenting with which cortical deficit?",
+        options: ["Receptive (Wernicke) aphasia", "Expressive (Broca) aphasia", "Dysarthria", "Retrograde amnesia"],
+        correct: 0,
+        explanation: "Damage to Wernicke's area in the superior temporal lobe results in receptive aphasia—fluent but meaningless speech and loss of comprehension."
+      },
+      {
+        id: "ns-20",
+        topic: "ch16",
+        topicName: "Ch 16: Coordination & Gait (Romberg Test)",
+        passage: "The neurological examination evaluates coordination and gait to assess cerebellar function and sensory balance circuits. The Romberg test asks the patient to stand erect with feet together and eyes closed. Swaying or falling with the eyes closed indicates sensory ataxia—a loss of proprioceptive somatosensory input from the dorsal column-medial lemniscal pathway—because visual feedback can no longer compensate for lost joint position sense.",
+        readingUrl: "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-5-coordination-and-gait-exams",
+        prompt: "In a clinical Romberg test, marked postural instability and falling that occurs specifically when the patient closes their eyes indicates a deficit in which sensory modality?",
+        options: ["Conscious proprioception via the dorsal columns", "Visual acuity via the optic chiasm", "High-frequency hearing via the cochlea", "Pain transduction via the spinothalamic tract"],
+        correct: 0,
+        explanation: "A positive Romberg sign indicates sensory ataxia resulting from impaired dorsal column proprioceptive transmission."
+      }
+    ];
+
+    const STORAGE_KEY = "openstax_ap1_unit4_nervous_mastery_v1";
+    let masteryData = loadMastery();
+    let currentTopicFilter = "all";
+    let activeQuestion = null;
+    let selectedOptionIndex = null;
+
+    const questionCard = document.getElementById("questionCard");
+    const completedCard = document.getElementById("completedCard");
+    const questionTag = document.getElementById("questionTag");
+    const passageText = document.getElementById("passageText");
+    const readingLink = document.getElementById("readingLink");
+    const questionPrompt = document.getElementById("questionPrompt");
+    const optionsList = document.getElementById("optionsList");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const submitBtn = document.getElementById("submitBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const resetMasteryBtn = document.getElementById("resetMasteryBtn");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    const statRemaining = document.getElementById("statRemaining");
+    const statMastered = document.getElementById("statMastered");
+    const statTotal = document.getElementById("statTotal");
+    const statPercent = document.getElementById("statPercent");
+
+    function loadMastery() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : {};
+      } catch (e) { return {}; }
+    }
+
+    function saveMastery() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(masteryData)); }
+      catch (e) { console.error("Storage error", e); }
+    }
+
+    function shuffleArray(arr) {
+      const array = [...arr];
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function getTopicPool(topicKey) {
+      if (topicKey === "all") return questionBank;
+      return questionBank.filter(q => q.topic === topicKey);
+    }
+
+    function getUnmasteredPool(topicKey) {
+      const fullPool = getTopicPool(topicKey);
+      return fullPool.filter(q => !masteryData[q.id] || masteryData[q.id] < 1);
+    }
+
+    function updateStats() {
+      const totalInPool = getTopicPool(currentTopicFilter).length;
+      const unmastered = getUnmasteredPool(currentTopicFilter).length;
+      const mastered = totalInPool - unmastered;
+      const pct = totalInPool > 0 ? Math.round((mastered / totalInPool) * 100) : 0;
+
+      statRemaining.textContent = unmastered;
+      statMastered.textContent = mastered;
+      statTotal.textContent = totalInPool;
+      statPercent.textContent = `${pct}%`;
+    }
+
+    function loadNextQuestion() {
+      selectedOptionIndex = null;
+      submitBtn.disabled = true;
+      submitBtn.style.display = "inline-block";
+      nextBtn.style.display = "none";
+      feedbackBox.className = "feedback-banner";
+      feedbackBox.textContent = "";
+
+      const availablePool = getUnmasteredPool(currentTopicFilter);
+
+      if (availablePool.length === 0) {
+        questionCard.style.display = "none";
+        completedCard.style.display = "block";
+        updateStats();
+        return;
+      }
+
+      questionCard.style.display = "block";
+      completedCard.style.display = "none";
+
+      const randomIndex = Math.floor(Math.random() * availablePool.length);
+      activeQuestion = availablePool[randomIndex];
+
+      questionTag.textContent = activeQuestion.topicName;
+      passageText.textContent = activeQuestion.passage;
+      readingLink.href = activeQuestion.readingUrl;
+      questionPrompt.textContent = activeQuestion.prompt;
+
+      const mappedOptions = activeQuestion.options.map((text, idx) => ({
+        text,
+        isCorrect: idx === activeQuestion.correct
+      }));
+      const shuffledOptions = shuffleArray(mappedOptions);
+      activeQuestion._currentShuffled = shuffledOptions;
+
+      optionsList.innerHTML = "";
+      shuffledOptions.forEach((opt, idx) => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn";
+        btn.innerHTML = `<strong>${String.fromCharCode(65 + idx)})</strong> ${opt.text}`;
+        btn.addEventListener("click", () => selectOption(idx));
+        li.appendChild(btn);
+        optionsList.appendChild(li);
+      });
+
+      updateStats();
+    }
+
+    function selectOption(index) {
+      selectedOptionIndex = index;
+      const buttons = optionsList.querySelectorAll(".option-btn");
+      buttons.forEach((btn, idx) => {
+        btn.classList.toggle("selected", idx === index);
+      });
+      submitBtn.disabled = false;
+    }
+
+    function checkAnswer() {
+      if (selectedOptionIndex === null || !activeQuestion) return;
+
+      const buttons = optionsList.querySelectorAll(".option-btn");
+      buttons.forEach(btn => (btn.disabled = true));
+
+      const chosen = activeQuestion._currentShuffled[selectedOptionIndex];
+      const isCorrect = chosen.isCorrect;
+
+      buttons.forEach((btn, idx) => {
+        if (activeQuestion._currentShuffled[idx].isCorrect) {
+          btn.classList.add("correct-choice");
+        } else if (idx === selectedOptionIndex) {
+          btn.classList.add("incorrect-choice");
+        }
+      });
+
+      if (isCorrect) {
+        masteryData[activeQuestion.id] = 1;
+        feedbackBox.className = "feedback-banner correct";
+        feedbackBox.innerHTML = `<strong>Correct!</strong> Mastered and removed from study rotation.<br>${activeQuestion.explanation}`;
+      } else {
+        masteryData[activeQuestion.id] = 0;
+        feedbackBox.className = "feedback-banner incorrect";
+        feedbackBox.innerHTML = `<strong>Incorrect.</strong> Kept in active review queue.<br>${activeQuestion.explanation}`;
+      }
+
+      saveMastery();
+      updateStats();
+
+      submitBtn.style.display = "none";
+      nextBtn.style.display = "inline-block";
+      nextBtn.focus();
+    }
+
+    submitBtn.addEventListener("click", checkAnswer);
+    nextBtn.addEventListener("click", loadNextQuestion);
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentTopicFilter = btn.getAttribute("data-topic");
+        loadNextQuestion();
+      });
+    });
+
+    resetMasteryBtn.addEventListener("click", () => {
+      if (confirm("Reset all mastery progress for this review?")) {
+        masteryData = {};
+        saveMastery();
+        loadNextQuestion();
+      }
+    });
+
+    loadNextQuestion();
+  </script>
+</body>
+</html>
